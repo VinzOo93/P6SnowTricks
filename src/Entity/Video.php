@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\VideosRepository;
+use App\Repository\VideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=VideosRepository::class)
+ * @ORM\Entity(repositoryClass=VideoRepository::class)
  */
-class Videos
+class Video
 {
     /**
      * @ORM\Id
@@ -23,10 +23,10 @@ class Videos
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tricks::class, inversedBy="videos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="video")
+     * @ORM\JoinColumn(nullable=false)https://youtube.fandom.com/fr/wiki/GouvHD
      */
-    private $tricks;
+    private $trick;
 
     public function getId(): ?int
     {
@@ -45,14 +45,14 @@ class Videos
         return $this;
     }
 
-    public function getTricks(): ?Tricks
+    public function getTrick(): ?Trick
     {
-        return $this->tricks;
+        return $this->trick;
     }
 
-    public function setTricks(?Tricks $tricks): self
+    public function setTrick(?Trick $trick): self
     {
-        $this->tricks = $tricks;
+        $this->trick = $trick;
 
         return $this;
     }

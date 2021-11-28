@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Types;
+use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Types|null find($id, $lockMode = null, $lockVersion = null)
- * @method Types|null findOneBy(array $criteria, array $orderBy = null)
- * @method Types[]    findAll()
- * @method Types[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Trick|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Trick[]    findAll()
+ * @method Trick[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypesRepository extends ServiceEntityRepository
+class TrickRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Types::class);
+        parent::__construct($registry, Trick::class);
     }
 
     // /**
-    //  * @return Types[] Returns an array of Types objects
+    //  * @return Trick[] Returns an array of Trick objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TypesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Types
+    public function findOneBySomeField($value): ?Trick
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

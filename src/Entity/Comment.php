@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentsRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CommentsRepository::class)
+ * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
-class Comments
+class Comment
 {
     /**
      * @ORM\Id
@@ -34,7 +34,7 @@ class Comments
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tricks::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -80,12 +80,12 @@ class Comments
         return $this;
     }
 
-    public function getTrick(): ?Tricks
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
-    public function setTrick(?Tricks $trick): self
+    public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
 

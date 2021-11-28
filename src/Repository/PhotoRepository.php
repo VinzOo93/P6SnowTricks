@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Photos;
+use App\Entity\Photo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Photos|null find($id, $lockMode = null, $lockVersion = null)
- * @method Photos|null findOneBy(array $criteria, array $orderBy = null)
- * @method Photos[]    findAll()
- * @method Photos[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Photo|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Photo|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Photo[]    findAll()
+ * @method Photo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PhotosRepository extends ServiceEntityRepository
+class PhotoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Photos::class);
+        parent::__construct($registry, Photo::class);
     }
 
     // /**

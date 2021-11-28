@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PhotosRepository;
+use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PhotosRepository::class)
+ * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */
-class Photos
+class Photo
 {
     /**
      * @ORM\Id
@@ -23,12 +23,11 @@ class Photos
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tricks::class, inversedBy="photo")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photo")
      */
-    private $tricks;
+    private $trick;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -45,14 +44,14 @@ class Photos
         return $this;
     }
 
-    public function getTricks(): ?Tricks
+    public function getTrick(): Trick
     {
-        return $this->tricks;
+        return $this->trick;
     }
 
-    public function setTricks(?Tricks $tricks): self
+    public function setTrick(Trick $trick): self
     {
-        $this->tricks = $tricks;
+        $this->trick = $trick;
 
         return $this;
     }
