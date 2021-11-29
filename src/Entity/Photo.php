@@ -23,7 +23,7 @@ class Photo
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photo")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photos")
      */
     private $trick;
 

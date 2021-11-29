@@ -23,8 +23,8 @@ class Video
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="video")
-     * @ORM\JoinColumn(nullable=false)https://youtube.fandom.com/fr/wiki/GouvHD
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
 

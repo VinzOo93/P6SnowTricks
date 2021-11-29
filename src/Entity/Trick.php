@@ -36,12 +36,12 @@ class Trick
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="tricks", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true)
      */
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="tricks", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
      */
     private $videos;
 
