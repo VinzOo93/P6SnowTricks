@@ -20,7 +20,7 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=55, unique=true)
+     * @ORM\Column(type="string", length=64, unique=true)
      * @ORM\JoinColumn(nullable=false)
      */
     private string $name;
@@ -36,12 +36,12 @@ class Trick
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="tricks", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true)
      */
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="tricks", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
      */
     private $videos;
 

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+        <div class="centered-item">
+                <h3 class="centered-title">Si votre compte existe vous allez recevoir un mail </h3>
+                <img src="{{ asset('images/monkey-frustrated.gif') }}" alt="forgot_password" class="forgot_password">
+                <a href="{{ path('home') }}" class="centered-title ">Acceuil</a>
+        </div>
+
+
+{% endblock %}

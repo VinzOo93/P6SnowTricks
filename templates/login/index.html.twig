@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter !{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1 class="centered-title">Se connecter</h1>
+    <a href="{{ path('home') }}" class="home-link">Acceuil</a>
+    <div class=form-login-register>
+        <form action="{{ path('login') }}" method="post">
+            {% if error %}
+                <div class="centered-title">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <label for="username">Pseudo :</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="_password"/>
+            <input type="hidden" name="_target_path" value="/"/>
+            <button type="submit">Se connecter</button>
+            <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+        </form>
+    </div>
+{% endblock %}

@@ -18,7 +18,7 @@ class Type
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=55, unique=true)
+     * @ORM\Column(type="string", length=64, unique=true)
      */
     private $name;
 
