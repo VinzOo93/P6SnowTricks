@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="banner-container">
+        <div class="div-home-title">
+            {% if is_granted('ROLE_USER') %}
+                <h3>Welcome {{ app.user }}</h3>
+            {% else %}
+                <h3>Welcome to Snowtricks </h3>
+            {% endif %}
+        </div>
+        <div class="background-image">
+            <img src="{{ asset('images/snowtricks-home.jpg') }}" class="img-snowtricks-home " alt="snowtricks-home">
+        </div>
+        <div class="toolbar">
+            <ul>
+                <li><a href="{{ path('register') }}">Register</a></li>
+                <li><a href={{ path('login') }}>Login</a></li>
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href={{ path('logout') }}>Logout</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TypesRepository;
+use App\Repository\TypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TypesRepository::class)
+ * @ORM\Entity(repositoryClass=TypeRepository::class)
  */
-class Types
+class Type
 {
     /**
      * @ORM\Id

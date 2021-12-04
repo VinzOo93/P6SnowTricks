@@ -6,12 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"email"})
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -21,6 +23,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=55)
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -44,9 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $signInDate;
 
     /**
-     * @ORM\OneToMany(targetEntity=Tricks::class, mappedBy="author", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="author", orphanRemoval=true)
      */
     private $tricks;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+
 
     public function __construct()
     {
@@ -58,6 +72,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
 
     public function getEmail(): ?string
     {
@@ -156,14 +183,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Tricks[]
+     * @return Collection|Trick[]
      */
     public function getTricks(): Collection
     {
         return $this->tricks;
     }
 
-    public function addTrick(Tricks $trick): self
+    public function addTrick(Trick $trick): self
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks[] = $trick;
@@ -173,7 +200,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeTrick(Tricks $trick): self
+    public function removeTrick(Trick $trick): self
     {
         if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
@@ -184,5 +211,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 
 }
