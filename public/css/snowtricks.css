@@ -1,8 +1,21 @@
+* {
+    font-family: Verdana, sans-serif;
+}
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+html,
+body {
+    height: 100%;
+}
 .banner-container {
     position: relative;
     text-align: center;
     color: white;
+    margin: auto;
 }
 
 .div-home-title {
@@ -12,16 +25,14 @@
     transform: translate(-50%, -50%);
 }
 
-.toolbar {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .centered-title {
     display: flex;
     justify-content: center;
+}
+
+.size-25px {
+    font-size: 3.5vw;
+    font-weight: bold;
 }
 
 .home-link {
@@ -69,4 +80,69 @@
     margin-left: 33%;
     margin-right: 33%;
 }
+
+.banner-container {
+    position: absolute;
+}
+
+.navbar-container {
+    width: 100%;
+    z-index: 2;
+    position: fixed;
+    left: 80%;
+    white-space: nowrap;
+    margin-top: 3%;
+
+}
+
+.navbar {
+    display: table-row;
+    text-align: justify !important;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar li {
+    margin-right: 3%;
+}
+
+.navbar a {
+    background-color: rgba(142, 165, 231, 0.84);
+    color: #ffffff;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid #5eb5e0 3px;
+}
+
+.img-snowtricks-home {
+    width: 100vw;
+    height: 85vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, -0.7)), url("../images/snowtricks-home.jpg");
+    background-size: cover;
+}
+
+.logo-snowtricks {
+    position: absolute;
+    width: 12vw;
+    left: 3%;
+    margin-top: 2%;
+    margin-bottom: 10px;
+}
+
+li {
+     text-decoration: none ;
+    list-style-type: none;
+}
+
+.tricks-container {
+    position: relative;
+    display: grid;
+    top: 88vh;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
 

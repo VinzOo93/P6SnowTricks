@@ -3,33 +3,30 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="flash-notice">
-            {{ message }}
-        </div>
-    {% endfor %}
-    <div class="banner-container">
-        <div class="div-home-title">
-            {% if is_granted('ROLE_USER') %}
-                <h3>Welcome {{ app.user }}</h3>
-            {% else %}
-                <h3>Welcome to Snowtricks </h3>
-            {% endif %}
-        </div>
-        <div class="background-image">
-            <img src="{{ asset('images/snowtricks-home.jpg') }}" class="img-snowtricks-home " alt="snowtricks-home">
-        </div>
-        <div class="toolbar">
-            <ul>
+    {% include 'navbar.html.twig' %}
 
+    <div class="content">
+        <div class="banner-container">
+            {% for message in app.flashes('success') %}
+                <div class="flash-notice">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <img src="{{ asset('images/snowtricks-logo.png') }}" class="logo-snowtricks" alt="logo-snowtricks">
+            <div class="div-home-title">
                 {% if is_granted('ROLE_USER') %}
-                    <li><a href={{ path('logout') }}>Logout</a></li>
+                    <h3>Welcome {{ app.user }}</h3>
                 {% else %}
-                        <li><a href="{{ path('register') }}">Register</a></li>
-                        <li><a href={{ path('login') }}>Login</a></li>
+                    <div class="centered-title size-25px">Welcome to Snowtricks</div>
                 {% endif %}
-            </ul>
-
+            </div>
+            <div class="background-image">
+                <div class="img-snowtricks-home"></div>
+            </div>
+        </div>
+        <div class="tricks-container">
+            {% include 'trick/index.html.twig' %}
         </div>
     </div>
+
 {% endblock %}
