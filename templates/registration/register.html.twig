@@ -3,21 +3,20 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-
-    <h1 class="centered-title">Enregistrez votre compte</h1>
-    <a href="{{ path('home') }}" class="home-link">Accueil</a>
-    <div class="form-login-register">
-        {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de Passe'
-        }) }}
-        <button type="submit" class="btn">Enregistrer</button>
-        {{ form_end(registrationForm) }}
-    </div>
-
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        <div class="form-over-background">
+            <h1 class="centered-title">Enregistrez votre compte</h1>
+            <div class="form-standard">
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.name) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Mot de Passe'
+                }) }}
+                <button type="submit" class="btn">Enregistrer</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
 {% endblock %}

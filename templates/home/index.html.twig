@@ -3,30 +3,19 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    {% include 'navbar.html.twig' %}
-
-    <div class="content">
-        <div class="banner-container">
             {% for message in app.flashes('success') %}
                 <div class="flash-notice">
                     {{ message }}
                 </div>
             {% endfor %}
-            <img src="{{ asset('images/snowtricks-logo.png') }}" class="logo-snowtricks" alt="logo-snowtricks">
             <div class="div-home-title">
                 {% if is_granted('ROLE_USER') %}
-                    <h3>Welcome {{ app.user }}</h3>
+                    <h3 class="centered-title size-25px">Welcome {{ app.user }}</h3>
                 {% else %}
                     <div class="centered-title size-25px">Just make your trick 🎿</div>
                 {% endif %}
             </div>
-            <div class="background-image">
-                <div class="img-snowtricks-home"></div>
-            </div>
-        </div>
         <div class="tricks-container">
             {% include 'trick/index.html.twig' %}
         </div>
-    </div>
-
 {% endblock %}

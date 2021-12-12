@@ -3,9 +3,9 @@
 {% block title %}New Trick{% endblock %}
 
 {% block body %}
-    <h1>Create new Trick</h1>
 
+    <div class="div-form-title">
+        <h1 class="centered-title">Nouveau Trick</h1>
+    </div>
     {{ include('trick/_form.html.twig') }}
-
-    <a href="{{ path('home') }}">back to list</a>
 {% endblock %}

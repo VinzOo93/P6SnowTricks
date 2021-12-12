@@ -30,15 +30,15 @@ class Trick
      */
     private string $description;
 
-    /**F
+    /**
      * @ORM\ManyToOne(targetEntity=Type::class)
      */
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
-    private $photos;
+    private  $photos;
 
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
@@ -129,7 +129,7 @@ class Trick
 
     public function removePhoto(Photo $photo): self
     {
-        if ($this->photo->removeElement($photo)) {
+        if ($this->photos->removeElement($photo)) {
             // set the owning side to null (unless already changed)
             if ($photo->getTrick() === $this) {
                 $photo->setTrick(null);
@@ -147,7 +147,7 @@ class Trick
         return $this->videos;
     }
 
-    public function addVideo(Video $video): self
+    public function addVideos(Video $video): self
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
@@ -157,7 +157,7 @@ class Trick
         return $this;
     }
 
-    public function removeVideo(Video $video): self
+    public function removeVideos(Video $video): self
     {
         if ($this->videos->removeElement($video)) {
             // set the owning side to null (unless already changed)

@@ -1,20 +1,25 @@
-<table class="table">
-    <tbody>
+<div class="table-card-container">
     {% for trick in tricks %}
-        <tr>
-            <td>{{ trick.id }}</td>
-            <td>{{ trick.name }}</td>
-            <td>{{ trick.description }}</td>
-            <td>{{ trick.dateAdded ? trick.dateAdded|date('Y-m-d H:i:s') : '' }}</td>
-            <td>
-                <a href="{{ path('trick_show', {'id': trick.id}) }}">show</a>
-                <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
-            </td>
-        </tr>
+        <div class="card-container">
+            <div class="img-card">
+                <a class="img-link" href="{{ path('trick_show', {'id': trick.id}) }}">
+                    {% for photos in trick.photos %}
+                        <img src="{{ asset('images/tricks/'~ photos.slug) }}" alt="{{ photos.slug }}">
+                    {% endfor %}
+                </a>
+            </div>
+            <div class="text-card">
+                <a class="card-title" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.name }}</a>
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('trick_edit', {'id': trick.id}) }}"><div class="edit-icon">✎</div></a>
+                    {{ include('trick/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+
+        </div>
     {% else %}
         <tr>
             <td colspan="5">no records found</td>
         </tr>
     {% endfor %}
-    </tbody>
-</table>
+</div>

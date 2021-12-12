@@ -4,18 +4,31 @@
 
 img {
     max-width: 100%;
+    max-height: 100%;
     height: auto;
 }
+
+form {
+    width: 12vw;
+}
+
+.form-over-background {
+    position: fixed;
+    top: 20%;
+    margin-left: 37%;
+    margin-right: 37%;
+}
+
 
 html,
 body {
     height: 100%;
 }
 .banner-container {
-    position: relative;
     text-align: center;
     color: white;
     margin: auto;
+    position: absolute;
 }
 
 .div-home-title {
@@ -24,10 +37,18 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.div-form-title {
+    position: absolute;
+    top: 13%;
+    left: 40%;
+}
+
 
 .centered-title {
     display: flex;
     justify-content: center;
+    color: white;
+    text-align: center;
 }
 
 .size-25px {
@@ -40,18 +61,18 @@ body {
     justify-content: center;
 }
 
-.form-login-register {
+.form-standard {
     display: flex;
     justify-content: center;
     background: #fff;
     padding: 4em 4em 2em;
-    max-width: 400px;
+    max-width: 13vw;
     margin: 50px auto 0;
-    box-shadow: 0 0 1em #222;
-    border-radius: 2px;
+    box-shadow: 0 0 1em #b4c5cb;
+    border-radius: 20px;
 }
 
-.form-login-register input {
+.form-standard input {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -59,7 +80,7 @@ body {
     margin: 0;
 }
 
-.form-login-register label {
+.form-standard label {
     left: 8px;
     top: 12px;
     color: #999;
@@ -70,7 +91,7 @@ body {
     background-color: rgba(255,255,255,0);
 }
 
-.form-login-register button {
+.form-standard button {
     margin-top: 5px;
     width: 100%;
 }
@@ -82,14 +103,13 @@ body {
 }
 
 .banner-container {
-    position: absolute;
 }
 
 .navbar-container {
     width: 100%;
     z-index: 2;
     position: fixed;
-    left: 80%;
+    left: 70%;
     white-space: nowrap;
     margin-top: 3%;
 
@@ -117,11 +137,17 @@ body {
     border: solid #5eb5e0 3px;
 }
 
+.navbar a:hover {
+
+    background-color: #DDDDDD;
+
+}
 .img-snowtricks-home {
     width: 100vw;
     height: 85vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, -0.7)), url("../images/snowtricks-home.jpg");
     background-size: cover;
+    z-index: -1;
 }
 
 .logo-snowtricks {
@@ -138,11 +164,77 @@ li {
 }
 
 .tricks-container {
-    position: relative;
+    position: absolute;
     display: grid;
-    top: 88vh;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 7%;
+    top: 88%;
+    margin-left: 7%;
 }
+
+.table-card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.card-container {
+    margin-top: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: solid rgba(142, 165, 231, 0.84);
+    background-color: #f1ebe2;
+    border-radius: 30px;
+}
+
+.card-container:hover {
+    background-color: #DDDDDD;
+}
+
+.text-card {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.img-link {
+    display: flex;
+    justify-content: center;
+}
+
+.img-card   {
+    display: flex;
+    max-height: 15vh !important;
+    margin: 15px;
+}
+.img-card  img {
+    border-radius: 10%;
+}
+
+.delete-icon .edit-icon {
+    position: center;
+}
+
+.edit-icon {
+    margin-top: 2px;
+}
+
+.delete-form {
+    display: contents;
+}
+
+.btn-delete {
+    border: none;
+    background: transparent !important;
+}
+
+.btn-delete:hover {
+    background-color: white !important;
+    border-radius: 5px;
+    padding: 1px;
+}
+
+
+
 
 

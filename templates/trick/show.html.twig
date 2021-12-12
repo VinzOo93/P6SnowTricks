@@ -3,30 +3,34 @@
 {% block title %}Trick{% endblock %}
 
 {% block body %}
-    <h1>Trick</h1>
-
-    <table class="table">
-        <tbody>
+    <div class="div-home-title">
+        <h3 class="centered-title size-25px">{{ trick.name }}</h3>
+    </div>
+    <div class="tricks-container">
+        <table class="table">
+            <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ trick.id }}</td>
+                <td>
+                    {% for photos in trick.photos %}
+                        <img src="{{ asset('images/tricks/'~ photos.slug) }}" alt="{{ photos.slug }}">
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for videos in trick.videos %}
+                        <iframe width="560" height="315" src="{{ videos.slug }}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
-                <th>Name</th>
-                <td>{{ trick.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
+                <td>{{ trick.dateAdded ? trick.dateAdded|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ trick.description }}</td>
             </tr>
-            <tr>
-                <th>DateAdded</th>
-                <td>{{ trick.dateAdded ? trick.dateAdded|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('trick_index') }}">back to list</a>
+
+    <a href="{{ path('home') }}">back to list</a>
 
     <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
 
