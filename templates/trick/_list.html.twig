@@ -1,0 +1,20 @@
+<table class="table">
+    <tbody>
+    {% for trick in tricks %}
+        <tr>
+            <td>{{ trick.id }}</td>
+            <td>{{ trick.name }}</td>
+            <td>{{ trick.description }}</td>
+            <td>{{ trick.dateAdded ? trick.dateAdded|date('Y-m-d H:i:s') : '' }}</td>
+            <td>
+                <a href="{{ path('trick_show', {'id': trick.id}) }}">show</a>
+                <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
