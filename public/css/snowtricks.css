@@ -231,7 +231,8 @@ li {
 .btn-delete:hover {
     background-color: white !important;
     border-radius: 5px;
-    padding: 1px;
+    padding-left: 3px;
+    padding-right: 1px;
 }
 
 

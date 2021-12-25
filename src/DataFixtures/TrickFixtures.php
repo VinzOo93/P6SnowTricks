@@ -32,7 +32,7 @@ class TrickFixtures extends Fixture implements FixtureGroupInterface, DependentF
             $user = $manager->getRepository(User::class)->find(self::ADMIN);
             $trick->setType($manager->getRepository(Type::class)->find(self::GRAB));
 
-            $trick->addPhotos($photo->setSlug('Trick-Grab-' . $media.  '.jpg'));
+            $trick->addPhotos($photo->setSlug('Trick-Grab-' . $media.  '.jpg')->setFolderId('Trick-Grab-' . $media));
             $manager->persist($photo);
 
             $trick->addVideos($video->setSlug('https://www.youtube.com/embed/UNItNopAeDU'));

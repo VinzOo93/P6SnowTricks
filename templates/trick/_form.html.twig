@@ -1,8 +1,35 @@
 <div class="form-over-background">
-<div class="form-standard">
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+    {% for flashError in app.flashes('alert_Same_Name') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <div class="form-standard">
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.type) }}
+        <div id="photos" data-prototype="{{ form_row(form.photos.vars.prototype)|e('html_attr') }}">
+            {{ form_row(form.photos) }}
+            <span></span>
+        </div>
+        <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+            {{ form_row(form.videos) }}
+            <span></span>
+        </div>
+
+        <button class="btn">{{ button_label|default('Save') }}</button>
+
+        {{ form_end(form) }}
+        {# {% for image in trick.photos %} #}
+        {# {% if image is not empty %} #}
+        {# <h2>Images</h2> #}
+        {# <div class="form-standard"> #}
+        {# <img src="{{ asset('images/tricks/'~ image.slug) }}" alt="{{ image.slug }}" width="150"> #}
+        {# </div> #}
+        {# {% endif %} #}
+        {# {% endfor %} #}
+    </div>
 </div>
-</div>
+{% block javascripts %}
+    <script type="module" src="{{ asset('js/add-photos.js') }}"></script>
+    <script type="module" src="{{ asset('js/add-videos.js') }}"></script>
+{% endblock %}

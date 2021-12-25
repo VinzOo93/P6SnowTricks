@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
@@ -23,9 +25,19 @@ class Photo
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photos")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photos", cascade={"persist"})
      */
     private $trick;
+
+    /**
+     * @var UploadedFile
+     */
+    protected $file;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $folderId;
 
     public function getId(): int
     {
@@ -37,7 +49,7 @@ class Photo
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -55,4 +67,38 @@ class Photo
 
         return $this;
     }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file): void
+    {
+        $this->file = $file;
+    }
+
+    public function getFolderId(): ?string
+    {
+        return $this->folderId;
+    }
+
+    public function setFolderId(string $folderId): self
+    {
+        $this->folderId = $folderId;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getSlug() ;
+    }
+
 }

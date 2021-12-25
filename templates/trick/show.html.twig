@@ -12,7 +12,7 @@
             <tr>
                 <td>
                     {% for photos in trick.photos %}
-                        <img src="{{ asset('images/tricks/'~ photos.slug) }}" alt="{{ photos.slug }}">
+                        <img src="{{ asset('images/tricks/'~ photos.folderId ~'/'~ photos.slug) }}" alt="{{ photos.slug }}">
                     {% endfor %}
                 </td>
                 <td>

@@ -3,14 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Trick;
-use App\Entity\Type;
-use PhpParser\Node\Scalar\MagicConst\File;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -42,28 +38,21 @@ class TrickType extends AbstractType
                 'mapped' => true,
                 'required' => true,
             ])
-            ->add('photos', FileType::class, [
-                'label' => 'Photo',
-                'mapped' => false,
-                'required' => false,
-                'empty_data' => '',
-//                'constraints' => [
-//                    new File([
-//                        'maxSize' => '1024k',
-//                        'mimeTypes' => [
-//                            'application/jpeg',
-//                            'application/jpg',
-//                            'application/png',
-//                        ],
-//                        'mimeTypesMessage' => 'Merci de choisir une format JPG ou PNG inférieur à 1024ko'
-//                    ])
-//                ]
+            ->add('photos', CollectionType::class, [
+                'entry_type' => PhotoType::class,
+                'allow_add' => true,
+                'entry_options' => ['label' => false],
+
             ])
-            ->add('videos', UrlType::class, [
-                'label' => 'URL Video',
-                'mapped' => false,
-                'required' => false,
+
+            ->add('videos', CollectionType::class, [
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
+                'entry_options' => ['label' => false],
             ]);
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

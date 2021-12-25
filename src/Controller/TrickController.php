@@ -5,11 +5,11 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Entity\Trick;
 use App\Entity\User;
-use App\Entity\Video;
 use App\Form\TrickType;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,32 +31,72 @@ class TrickController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $trick = new Trick();
+        $filsystem = new  Filesystem();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $now = new \DateTime('now');
             $user = $entityManager->getRepository(User::class);
-            $photo = new Photo();
+            $now = new \DateTime('now');
+            $sysPath = sys_get_temp_dir() . '/upload';
+            $fileId = uniqid();
+            $pathImage = $this->getParameter('photo_dir') . '/' . $fileId;
 
-            $filePhoto = $form->get('photos')->getData();
-            if ($filePhoto) {
+            $filePhotos = $trick->getPhotos();
+            $fileVideos = $trick->getVideos();
+            $name = $trick->getName();
 
-                $originalFilename = pathinfo($filePhoto->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $filePhoto->guessExtension();
-                try {
-                    $filePhoto->move(
-                        $this->getParameter('photo_dir'),
-                        $newFilename
-                    );
+            try {
+                if ($entityManager->getRepository('App:Trick')->findOneBy(['name' => $name])) {
+                    throw new Exception();
+                }
+            } catch (Exception $exception) {
+                $this->addFlash('alert_Same_Name', 'Ce nom est déjà utilisé');
+                return $this->redirectToRoute('trick_new');
+            }
 
-                    $trick->addPhotos($photo->setSlug($newFilename));
-                } catch (fileException $e) {
-                    dd('error upload');
+            if ($filePhotos) {
+
+                $filsystem->mkdir($sysPath);
+                $filsystem->rename($sysPath, $pathImage);
+
+                foreach ($filePhotos as $filePhoto) {
+                    $file = $filePhoto->getFile();
+                    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                    $filePhoto->setSlug($newFilename);
+                    $filePhoto->setFolderId($fileId);
+                    $filePhoto->setTrick($trick);
+
+                    $entityManager->persist($filePhoto);
+
+                    try {
+                        $file->move(
+                            $pathImage,
+                            $newFilename
+                        );
+
+                    } catch (fileException $e) {
+                        echo('error upload');
+                    }
                 }
             }
+
+            if ($fileVideos) {
+                foreach ($fileVideos as $fileVideo) {
+
+                    $slug = $fileVideo->getSlug();
+                    $fileVideo->setSlug($slug);
+                    $fileVideo->setTrick($trick);
+
+                    $entityManager->persist($fileVideo);
+                }
+            }
+
             $trick->setDescription($form->get('description')->getData());
             $trick->setAuthor($user->find($this->getUser()));
             $trick->setDateAdded($now);
@@ -66,7 +106,6 @@ class TrickController extends AbstractController
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('trick/new.html.twig', [
             'trick' => $trick,
             'form' => $form,
@@ -94,28 +133,39 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            return $this->renderForm('trick/edit.html.twig', [
+                'trick' => $trick,
+                'form' => $form,
+            ]);
+            foreach ($form->get('photos')->getData() as $photo) {
+                dump($photo);
+            }
             $now = new \DateTime('now');
             $user = $entityManager->getRepository(User::class);
             $photo = new Photo();
 
-            $filePhoto = $form->get('photos')->getData();
-            if ($filePhoto) {
+            $filePhotos = $form->get('photos')->getData();
 
-                $originalFilename = pathinfo($filePhoto->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $filePhoto->guessExtension();
-                try {
-                    $filePhoto->move(
-                        $this->getParameter('photo_dir'),
-                        $newFilename
-                    );
+            if ($filePhotos) {
+                foreach ($filePhotos as $filePhoto) {
 
-                    $trick->addPhotos($photo->setSlug($newFilename));
-                } catch (fileException $e) {
-                    dd('error upload');
+                    $originalFilename = pathinfo($filePhoto->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $filePhoto->guessExtension();
+                    try {
+                        $filePhoto->move(
+                            $this->getParameter('photo_dir'),
+                            $newFilename
+                        );
+
+                        $trick->addPhotos($photo->setSlug($newFilename));
+                    } catch (fileException $e) {
+                        dd('error upload');
+                    }
                 }
             }
+
+
             $trick->setDescription($form->get('description')->getData());
             $trick->setAuthor($user->find($this->getUser()));
             $trick->setDateAdded($now);
@@ -136,7 +186,17 @@ class TrickController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
+        $filsystem = new  Filesystem();
+
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
+
+            $photos = $trick->getPhotos()->getValues();
+            $folderId = $photos[0]->getFolderId();
+            $pathImage = $this->getParameter('photo_dir') . '/' . $folderId;
+
+            if ($filsystem->exists($pathImage)) {
+                $filsystem->remove($pathImage);
+            }
 
             $entityManager->remove($trick);
             $entityManager->flush();
