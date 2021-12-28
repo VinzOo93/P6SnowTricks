@@ -9,7 +9,7 @@ function init() {
     btnAdd = document.createElement("button");
     btnAdd.className = "add-photo btn "
     btnAdd.type = "button"
-    btnAdd.innerText = "Ajouter les photos"
+    btnAdd.innerText = "Ajouter une photo"
 
     form.appendChild(btnAdd);
 

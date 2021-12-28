@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Video;
+use App\Validator\UrlYT;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,8 +15,8 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('slug', UrlType::class, [
-                'label' => 'URL Video',
-                'required' => false,
+                'label' => false,
+                'required' => true,
             ]);
     }
 

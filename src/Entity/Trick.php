@@ -6,6 +6,8 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator as AppUrl;
+
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -42,6 +44,7 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
+     * @AppUrl\UrlYT
      */
     private $videos;
 

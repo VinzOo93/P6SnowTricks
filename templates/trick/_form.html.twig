@@ -1,4 +1,4 @@
-<div class="form-over-background">
+<div class="form-outer-background">
     {% for flashError in app.flashes('alert_Same_Name') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
@@ -12,6 +12,7 @@
             <span></span>
         </div>
         <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+            {{ form_errors(form) }}
             {{ form_row(form.videos) }}
             <span></span>
         </div>
