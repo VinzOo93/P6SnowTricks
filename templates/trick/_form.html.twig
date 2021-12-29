@@ -1,36 +1,56 @@
-<div class="form-outer-background">
-    {% for flashError in app.flashes('alert_Same_Name') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-    <div class="form-standard">
-        {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.type) }}
-        <div id="photos" data-prototype="{{ form_row(form.photos.vars.prototype)|e('html_attr') }}">
-            {{ form_row(form.photos) }}
-            <span></span>
-        </div>
-        <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
-            {{ form_errors(form) }}
-            {{ form_row(form.videos) }}
-            <span></span>
-        </div>
+{% form_theme form 'form/file_widget.twig' %}
+<div class="form-container">
+    <div class="form-outer-background">
+        {% for flashError in app.flashes('alert_Same_Name') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        <div class="form-trick">
+            {{ form_start(form) }}
+            <div class="form-group-1">
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.type) }}
+            </div>
 
-        <button class="btn">{{ button_label|default('Save') }}</button>
-
+            <div class="photos-container">
+                {% for flashError in app.flashes('alert-last-image') %}
+                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                {% endfor %}
+                <div id="photos" data-prototype="{{ form_row(form.photos.vars.prototype)|e('html_attr') }}">
+                    {{ form_label(form.photos) }}
+                    {{ form_errors(form.photos) }}
+                    {{ form_widget(form.photos) }}
+                    {% for photo in trick.photos %}
+                        <div class="photo-button">
+                            <img src="{{ asset('images/tricks/'~ photo.folderId ~'/'~ photo.slug) }}"
+                                 alt="{{ photo.slug }}" width="150px">
+                                <a href="{{ path('photo_delete', {id : photo.id}) }}"  data-delete-photo data-token="{{ csrf_token('delete-photo'~ photo.id) }} }}">🗑</a>
+                        </div>
+                    {% endfor %}
+                    <span class="form-span"></span>
+                </div>
+            </div>
+            <div class="videos-container">
+                <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+                    {{ form_errors(form.videos) }}
+                    {{ form_row(form.videos) }}
+                    {% for video in trick.videos %}
+                        <a href="{{ path('video_delete', {id : video.id}) }}" id="trick_videos"  data-delete-video data-token="{{ csrf_token('delete-video'~ video.id) }} }}">🗑</a>
+                    {% endfor %}
+                    <span class="form-span"></span>
+                </div>
+            </div>
+        </div>
+        <div class="div-button">
+            <button class="btn btn-form">{{ button_label|default('Save') }}</button>
+        </div>
         {{ form_end(form) }}
-        {# {% for image in trick.photos %} #}
-        {# {% if image is not empty %} #}
-        {# <h2>Images</h2> #}
-        {# <div class="form-standard"> #}
-        {# <img src="{{ asset('images/tricks/'~ image.slug) }}" alt="{{ image.slug }}" width="150"> #}
-        {# </div> #}
-        {# {% endif %} #}
-        {# {% endfor %} #}
     </div>
+
 </div>
 {% block javascripts %}
     <script type="module" src="{{ asset('js/add-photos.js') }}"></script>
+    <script type="module" src="{{ asset('js/delete-photo.js') }}"></script>
     <script type="module" src="{{ asset('js/add-videos.js') }}"></script>
+    <script type="module" src="{{ asset('js/delete-video.js') }}"></script>
 {% endblock %}

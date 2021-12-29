@@ -23,12 +23,14 @@ class PhotoType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Merci de choisir une format JPG ou PNG'
+                        'mimeTypesMessage' => 'Merci de choisir une format JPG ou PNG',
                     ])
                 ]
-            ])
-        ;
+            ]);
+
     }
+
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -36,4 +38,7 @@ class PhotoType extends AbstractType
             'data_class' => Photo::class,
         ]);
     }
+
+
+
 }

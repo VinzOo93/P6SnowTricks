@@ -8,15 +8,16 @@ img {
     height: auto;
 }
 
-form {
-    width: 12vw;
-}
-
 .form-over-background {
     position: fixed;
     top: 20%;
     margin-left: 37%;
     margin-right: 37%;
+}
+
+.form-outer-background {
+    position: absolute;
+    top: 83%;
 }
 
 
@@ -39,7 +40,7 @@ body {
 }
 .div-form-title {
     position: absolute;
-    top: 13%;
+    top: 20%;
     left: 40%;
 }
 
@@ -71,6 +72,47 @@ body {
     box-shadow: 0 0 1em #b4c5cb;
     border-radius: 20px;
 }
+.form-trick {
+    background: #fff;
+    padding: 4em 30em;
+    max-width: 15vw;
+    margin: 5% auto 0;
+    box-shadow: 0 0 1em #b4c5cb;
+    border-radius: 20px;
+}
+
+.form-trick div {
+    margin-right: 0.5vw;
+    margin-left: 0.5vw;
+}
+
+
+
+.new-item {
+    margin-top: 10px;
+    display: flex;
+}
+
+.new-item input {
+    margin-top: 10px !important;
+}
+
+.div-button {
+    margin: 5vh 25% 5vh 25%;
+
+}
+
+.btn-form {
+    position: absolute;
+    width: 30vw;
+    height: 3vh;
+    z-index: 5;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+}
 
 .form-standard input {
     display: block;
@@ -91,9 +133,61 @@ body {
     background-color: rgba(255,255,255,0);
 }
 
+.form-group-1 form {
+    width: 400px;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+
+.form-group-1 input label{
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 4px 50px;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 0 10%;
+    position: relative;
+}
+
+.form-group-1 {
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 13px;
+    border-radius: 20px;
+
+}
+
+.photos-container .videos-container {
+    column-count: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.placement {
+}
+
+.videos-container input{
+   width: 30vh;
+}
+
 .form-standard button {
     margin-top: 5px;
     width: 100%;
+}
+
+.form-trick  form {
+    display: flex;
+    justify-content: center;
+}
+
+.form-trick input {
+    margin: 2%;
 }
 
 .centered-item {
@@ -211,6 +305,17 @@ li {
     border-radius: 10%;
 }
 
+.img-centered {
+    display: flex;
+    justify-content: center;
+}
+
+.img-centered img{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
 .delete-icon .edit-icon {
     position: center;
 }
@@ -228,12 +333,59 @@ li {
     background: transparent !important;
 }
 
-.btn-delete:hover {
+.btn-del {
+    color: darkred;
+}
+
+.btn-add {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: #5de6de;
+    background-image: linear-gradient(315deg, #f1ebe2 0%, #ffffff 74%);
+    border: solid 1px black;
+    border-radius: 50%;
+    transition: 200ms;
+    margin-top: 0.5vh;
+    margin-left: 1vw;
+    color: darkgreen;
+}
+
+.btn-add:hover {
     background-color: white !important;
     border-radius: 5px;
     padding-left: 3px;
     padding-right: 1px;
 }
+
+.btn-delete:hover  {
+    background-color: white !important;
+    border-radius: 5px;
+    padding-left: 3px;
+    padding-right: 1px;
+}
+
+.form-span {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+#trick_description {
+    width: 14vw;
+    height: 10vw;
+}
+
+#trick_type {
+    margin-top: 5px;
+    margin-left: 10px;
+    width: 14vw;
+
+}
+
+#trick_name {
+    width: 13vw
+}
+
 
 
 

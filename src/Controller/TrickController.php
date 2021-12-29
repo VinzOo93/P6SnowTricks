@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Entity\Video;
 use App\Form\TrickType;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,12 +39,12 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user = $entityManager->getRepository(User::class);
             $now = new \DateTime('now');
             $sysPath = sys_get_temp_dir() . '/upload';
             $fileId = uniqid();
             $pathImage = $this->getParameter('photo_dir') . '/' . $fileId;
+
 
             $filePhotos = $trick->getPhotos();
             $fileVideos = $trick->getVideos();
@@ -62,6 +65,7 @@ class TrickController extends AbstractController
                 $filsystem->rename($sysPath, $pathImage);
 
                 foreach ($filePhotos as $filePhoto) {
+
                     $file = $filePhoto->getFile();
                     $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                     $safeFilename = $slugger->slug($originalFilename);
@@ -84,7 +88,6 @@ class TrickController extends AbstractController
                     }
                 }
             }
-
             if ($fileVideos) {
                 foreach ($fileVideos as $fileVideo) {
 
@@ -96,7 +99,6 @@ class TrickController extends AbstractController
                 }
             }
 
-            $trick->setDescription($form->get('description')->getData());
             $trick->setAuthor($user->find($this->getUser()));
             $trick->setDateAdded($now);
 
@@ -124,59 +126,116 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}/edit", name="trick_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager, SluggerInterface $slugger)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
 
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $filsystem = new  Filesystem();
+        $filesField = $trick->getPhotos()->getValues();
+        $pathImage = $this->getParameter('photo_dir') . '/';
+
+        foreach ($filesField as $fileField) {
+
+            $fileField->setFile(new File($pathImage . $fileField->getFolderId() . '/' . $fileField->getSlug()));
+        }
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->renderForm('trick/edit.html.twig', [
-                'trick' => $trick,
-                'form' => $form,
-            ]);
-            foreach ($form->get('photos')->getData() as $photo) {
-                dump($photo);
-            }
-            $now = new \DateTime('now');
-            $user = $entityManager->getRepository(User::class);
-            $photo = new Photo();
 
-            $filePhotos = $form->get('photos')->getData();
+            $nameForm = $form->get('name')->getData();
+            $filePhotos = $trick->getPhotos();
+            $fileVideos = $trick->getVideos();
+            $name = $trick->getName();
+
+            try {
+                if ($nameForm != $name) {
+                    if ($entityManager->getRepository('App:Trick')->findOneBy(['name' => $name])) {
+                        throw new Exception();
+                    }
+                }
+            } catch (Exception $exception) {
+                $this->addFlash('alert_Same_Name', 'Ce nom est déjà utilisé');
+                return $this->redirectToRoute('trick_edit');
+            }
 
             if ($filePhotos) {
-                foreach ($filePhotos as $filePhoto) {
 
-                    $originalFilename = pathinfo($filePhoto->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $filePhoto->guessExtension();
-                    try {
-                        $filePhoto->move(
-                            $this->getParameter('photo_dir'),
-                            $newFilename
-                        );
+                $photosBase = $trick->getPhotos()->getValues();
+                $folderId = $photosBase[0]->getFolderId();
 
-                        $trick->addPhotos($photo->setSlug($newFilename));
-                    } catch (fileException $e) {
-                        dd('error upload');
+
+                if ($filsystem->exists($pathImage)) {
+
+                    foreach ($filePhotos as $filePhoto) {
+
+                        if ($folderId == null) {
+                            $folderId = uniqid();
+                        }
+
+                        $pathImage = $this->getParameter('photo_dir') . '/' . $folderId;
+
+                        $file = $filePhoto->getFile();
+                        if ($file != null) {
+                            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                            $safeFilename = $slugger->slug($originalFilename);
+                            $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                            if ($filePhoto->getId()) {
+                                $filsystem->remove($pathImage . '/' . $filePhoto->getSlug());
+                            }
+                            if ($filePhoto->getFolderId() == null) {
+                                $filePhoto->setFolderId($folderId);
+                            };
+                            $filePhoto->setSlug($newFilename);
+                            $filePhoto->setTrick($trick);
+
+                            $entityManager->persist($filePhoto);
+
+                            try {
+                                $file->move(
+                                    $pathImage,
+                                    $newFilename
+                                );
+
+                            } catch (fileException $e) {
+                                echo('error upload');
+                            }
+                        }
                     }
+                };
+            }
+
+            if ($fileVideos) {
+                foreach ($fileVideos as $fileVideo) {
+
+                    $slug = $fileVideo->getSlug();
+                    $fileVideo->setSlug($slug);
+                    $fileVideo->setTrick($trick);
+
+                    $entityManager->persist($fileVideo);
                 }
             }
 
-
             $trick->setDescription($form->get('description')->getData());
-            $trick->setAuthor($user->find($this->getUser()));
-            $trick->setDateAdded($now);
-
             $entityManager->persist($trick);
             $entityManager->flush();
+
+
+            return $this->redirectToRoute('trick_edit', [
+                'id' => $trick->getId(),
+                'trick' => $trick,
+                'form' => $form
+            ],
+                Response::HTTP_SEE_OTHER);
+
         }
         return $this->renderForm('trick/edit.html.twig', [
             'trick' => $trick,
             'form' => $form,
         ]);
     }
+
 
     /**
      * @Route("/{id}/delete", name="trick_delete", methods={"POST"})
@@ -203,4 +262,65 @@ class TrickController extends AbstractController
 
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/{id}/delete-photo", name="photo_delete", methods={"DELETE"})
+     */
+    public function deletePhoto(Request $request, Photo $photo, EntityManagerInterface $entityManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $filsystem = new  Filesystem();
+
+        $data = json_decode($request->getContent(), true);
+
+        if ($this->isCsrfTokenValid('delete-photo' . $photo->getId(), $data['_token'])) {
+
+            $photos = $entityManager->getRepository('App:Photo')->findBy(['trick' => $photo->getTrick()]);
+            try {
+                if (count($photos) === 1) {
+                    throw new Exception();
+                } else {
+                    $folderId = $photo->getFolderId();
+                    $slug = $photo->getSlug();
+
+                    $pathImage = $this->getParameter('photo_dir') . '/' . $folderId . '/' . $slug;
+
+                    if ($filsystem->exists($pathImage)) {
+                        $filsystem->remove($pathImage);
+                    }
+                    $entityManager->remove($photo);
+                    $entityManager->flush();
+
+                    return new JsonResponse(['success' => 1]);
+                }
+
+            } catch (Exception $exception) {
+                $this->addFlash('alert-last-image', 'il ne reste plus qu\'une photo !!');
+                return new JsonResponse(['error' => 'Token Invalide'], 301);
+            }
+        } else {
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
+
+    /**
+     * @Route("/{id}/delete-video", name="video_delete", methods={"DELETE"})
+     */
+    public function deleteVideo(Request $request, Video $video, EntityManagerInterface $entityManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $data = json_decode($request->getContent(), true);
+
+        if ($this->isCsrfTokenValid('delete-video' . $video->getId(), $data['_token'])) {
+            $entityManager->remove($video);
+            $entityManager->flush();
+
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
+
 }

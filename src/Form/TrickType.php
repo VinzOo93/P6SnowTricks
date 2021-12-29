@@ -30,30 +30,31 @@ class TrickType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
-                'mapped' => true,
                 'required' => false,
             ])
             ->add('type', null, [
                 'label' => 'Groupe',
-                'mapped' => true,
                 'required' => true,
             ])
             ->add('photos', CollectionType::class, [
                 'entry_type' => PhotoType::class,
                 'allow_add' => true,
-                'entry_options' => ['label' => false],
-
+                'allow_delete' => true,
+                'entry_options' => [
+                    'label' => false,
+                    ],
             ])
 
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
                 'allow_add' => true,
-                'entry_options' => ['label' => false],
+                'allow_delete' => true,
+                'entry_options' => [
+                    'label' => false
+                ],
             ]);
-
-
-
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
