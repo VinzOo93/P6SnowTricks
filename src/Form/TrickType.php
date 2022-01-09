@@ -49,6 +49,7 @@ class TrickType extends AbstractType
                 'entry_type' => VideoType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'error_bubbling' => false,
                 'entry_options' => [
                     'label' => false
                 ],

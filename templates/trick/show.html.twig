@@ -7,26 +7,39 @@
         <h3 class="centered-title size-25px">{{ trick.name }}</h3>
     </div>
     <div class="tricks-container">
-        <table class="table">
-            <tbody>
-            <tr>
-                <td>
-                    {% for photos in trick.photos %}
-                        <img src="{{ asset('images/tricks/'~ photos.folderId ~'/'~ photos.slug) }}" alt="{{ photos.slug }}">
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for videos in trick.videos %}
-                        <iframe width="560" height="315" src="{{ videos.slug }}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <td>{{ trick.dateAdded ? trick.dateAdded|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ trick.description }}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="container-show">
+            <div class="item">
+                {% for photos in trick.photos %}
+                    <img class="img-show" src="{{ asset('images/tricks/'~ photos.folderId ~'/'~ photos.slug) }}"
+                         alt="{{ photos.slug }}">
+                {% endfor %}
+            </div>
+            <div class="item">
+                {% for videos in trick.videos %}
+                    <iframe width="460" height="250" class="video-show" src="{{ videos.slug }}"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="show-text-area">
+            <h2 class="title-trick">{{ trick.name }}
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('trick_edit', {'id': trick.id}) }}">
+                        <div class="edit-icon"> ✎</div>
+                    </a>
+                {% endif %}
+            </h2>
+            <p>{{ trick.description }}</p>
+        </div>
+        <div class="sticker-show">
+            <p class="sticker">Date de creation : {{ trick.dateAdded ? trick.dateAdded|date('Y-m-d H:i:s') : '' }}</p>
+            <p class="sticker">Dernière modification : {{ trick.dateUpdated ? trick.dateUpdated|date('Y-m-d H:i:s') : ''}}</p>
+            <p class="sticker">Type : {{ trick.type }}</p>
+            <p class="sticker">Auteur : {{ trick.author }}</p>
+        </div>
+
     </div>
 
 

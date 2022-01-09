@@ -48,7 +48,6 @@ function init() {
 function addButton(form) {
     let prototype = form.dataset.prototype;
     let index = form.dataset.index;
-    console.log(prototype);
     prototype = prototype.replace(/__name__/g, index)
     let content = document.createElement("html");
     content.innerHTML = prototype;

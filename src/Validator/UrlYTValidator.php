@@ -3,7 +3,6 @@
 namespace App\Validator;
 
 
-use App\Entity\Video;
 use http\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -21,10 +20,21 @@ class UrlYTValidator extends ConstraintValidator
         if (empty($values)) {
             return;
         }
-        function ping($host): bool
+        function ping($url): bool
         {
-            exec(sprintf('ping -c 1 -W 5 %s', escapeshellarg($host)), $res, $rval);
-            return $rval === 0;
+            $ch = curl_init($url);
+
+            curl_setopt($ch, CURLOPT_NOBODY, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_exec($ch);
+            $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            if (200==$retcode) {
+                return true;
+            } else {
+                return false;
+            }
+
         }
 
 
@@ -32,10 +42,10 @@ class UrlYTValidator extends ConstraintValidator
          * @var UrlYT $constraint
          */
         foreach ($values as $item) {
-            $url = parse_url($item->getSlug());
-            $up = ping($url['host']);
+            $url = $item->getSlug();
+            $up = ping($url);
 
-            if ($url['host'] != 'www.youtube.com') {
+            if (!strpos($url,'www.youtube.com')) {
                 $this->context->buildViolation($constraint->message)->addViolation();
 
             } else {

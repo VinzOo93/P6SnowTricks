@@ -64,6 +64,11 @@ class Trick
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateUpdated;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -222,6 +227,18 @@ class Trick
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getDateUpdated(): ?\DateTimeInterface
+    {
+        return $this->dateUpdated;
+    }
+
+    public function setDateUpdated(?\DateTimeInterface $dateUpdated): self
+    {
+        $this->dateUpdated = $dateUpdated;
 
         return $this;
     }

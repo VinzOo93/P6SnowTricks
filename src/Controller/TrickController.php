@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -133,10 +133,11 @@ class TrickController extends AbstractController
         $filsystem = new  Filesystem();
         $filesField = $trick->getPhotos()->getValues();
         $pathImage = $this->getParameter('photo_dir') . '/';
+        $now = new \DateTime('now');
 
         foreach ($filesField as $fileField) {
 
-            $fileField->setFile(new File($pathImage . $fileField->getFolderId() . '/' . $fileField->getSlug()));
+            $fileField->setFile(new UploadedFile($pathImage . $fileField->getFolderId() . '/' . $fileField->getSlug(), $fileField->getSlug()));
         }
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -163,7 +164,6 @@ class TrickController extends AbstractController
 
                 $photosBase = $trick->getPhotos()->getValues();
                 $folderId = $photosBase[0]->getFolderId();
-
 
                 if ($filsystem->exists($pathImage)) {
 
@@ -216,7 +216,7 @@ class TrickController extends AbstractController
                     $entityManager->persist($fileVideo);
                 }
             }
-
+            $trick->setDateUpdated($now);
             $trick->setDescription($form->get('description')->getData());
             $entityManager->persist($trick);
             $entityManager->flush();
@@ -283,14 +283,19 @@ class TrickController extends AbstractController
                 } else {
                     $folderId = $photo->getFolderId();
                     $slug = $photo->getSlug();
-
+                    $trick = $photo->getTrick();
+                    $now = new \DateTime('now');
                     $pathImage = $this->getParameter('photo_dir') . '/' . $folderId . '/' . $slug;
 
                     if ($filsystem->exists($pathImage)) {
                         $filsystem->remove($pathImage);
                     }
+                    $trick->setDateUpdated($now);
+
                     $entityManager->remove($photo);
+                    $entityManager->persist($trick);
                     $entityManager->flush();
+
 
                     return new JsonResponse(['success' => 1]);
                 }
@@ -314,7 +319,12 @@ class TrickController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if ($this->isCsrfTokenValid('delete-video' . $video->getId(), $data['_token'])) {
+
+            $trick = $video->getTrick();
+            $now = new \DateTime('now');
+            $trick->setDateUpdated($now);
             $entityManager->remove($video);
+            $entityManager->persist($trick);
             $entityManager->flush();
 
             return new JsonResponse(['success' => 1]);
@@ -322,5 +332,4 @@ class TrickController extends AbstractController
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
-
 }

@@ -5,13 +5,23 @@
             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
         {% endfor %}
         <div class="form-trick">
+            <div class="edit-title">
+                <div class="text-card">
+                    {% if app.request.attributes.get('_route') ==  'trick_edit' %}
+                        <h4><a class="card-title" href="{{ path('trick_show', {'id': trick.id}) }}">Trick
+                                : {{ trick.name }}</a></h4>
+                        {{ include('trick/_delete_form.html.twig') }}
+                    {% else %}
+                        <h4>Formulaire</h4>
+                    {% endif %}
+                </div>
+            </div>
             {{ form_start(form) }}
             <div class="form-group-1">
                 {{ form_row(form.name) }}
                 {{ form_row(form.description) }}
                 {{ form_row(form.type) }}
             </div>
-
             <div class="photos-container">
                 {% for flashError in app.flashes('alert-last-image') %}
                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
@@ -21,21 +31,28 @@
                     {{ form_errors(form.photos) }}
                     {{ form_widget(form.photos) }}
                     {% for photo in trick.photos %}
-                        <div class="photo-button">
+                        {% if photo.id is not null %}
+                            <div class="photo-button">
                             <img src="{{ asset('images/tricks/'~ photo.folderId ~'/'~ photo.slug) }}"
                                  alt="{{ photo.slug }}" width="150px">
-                                <a href="{{ path('photo_delete', {id : photo.id}) }}"  data-delete-photo data-token="{{ csrf_token('delete-photo'~ photo.id) }} }}">🗑</a>
+                                <a href="{{ path('photo_delete', {id : photo.id}) }}" data-delete-photo
+                                   data-token="{{ csrf_token('delete-photo'~ photo.id) }} }}">🗑</a>
                         </div>
+                        {% endif %}
                     {% endfor %}
                     <span class="form-span"></span>
                 </div>
             </div>
             <div class="videos-container">
                 <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+                    {{ form_label(form.videos) }}
                     {{ form_errors(form.videos) }}
-                    {{ form_row(form.videos) }}
+                    {{ form_widget(form.videos) }}
                     {% for video in trick.videos %}
-                        <a href="{{ path('video_delete', {id : video.id}) }}" id="trick_videos"  data-delete-video data-token="{{ csrf_token('delete-video'~ video.id) }} }}">🗑</a>
+                        {% if video.id is not null %}
+                            <a href="{{ path('video_delete', {id : video.id}) }}" id="trick_videos" data-delete-video
+                               data-token="{{ csrf_token('delete-video'~ video.id) }} }}">🗑</a>
+                        {% endif %}
                     {% endfor %}
                     <span class="form-span"></span>
                 </div>
