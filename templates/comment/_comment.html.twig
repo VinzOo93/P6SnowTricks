@@ -1,0 +1,17 @@
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-form">{{ button_label|default('Add a comment') }}</button>
+        {{ form_end(form) }}
+
+        {% for comment in trick.comments %}
+            <p>{{ comment.author }}</p>
+            <p>{{ comment.content }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Photo;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Entity\Video;
+use App\Form\CommentType;
 use App\Form\TrickType;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,6 +90,7 @@ class TrickController extends AbstractController
                     }
                 }
             }
+
             if ($fileVideos) {
                 foreach ($fileVideos as $fileVideo) {
 
@@ -114,12 +117,38 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/show", name="trick_show", methods={"GET"})
+     * @Route("/{id}/show", name="trick_show", methods={"GET","POST"})
      */
-    public function show(Trick $trick): Response
+    public function show(Request $request, Trick $trick, EntityManagerInterface  $entityManager): Response
     {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_USER') && $comment->getContent() != null){
+            $content = $comment->getContent();
+            $now = new \DateTime('now');
+            $user = $entityManager->getRepository(User::class);
+
+            $comment->setContent($content);
+            $comment->setDateAdded($now);
+            $comment->setAuthor($user->find($this->getUser()));
+            $comment->setTrick($trick);
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('trick_show', [
+                'id' => $trick->getId(),
+                'trick' => $trick,
+                'form' => $form,
+            ], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'form' => $form->createView(),
         ]);
     }
 
