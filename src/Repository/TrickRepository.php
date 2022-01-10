@@ -31,11 +31,11 @@ class TrickRepository extends ServiceEntityRepository
         ;
     }
 
-    public  function findNextDate(array $id){
+    public  function findNextDate(string $id){
         return $this->createQueryBuilder('t')
-            ->setParameter('id', array_values($id))
             ->andWhere('t.dateAdded < CURRENT_TIMESTAMP()')
-            ->andWhere('id < :id')
+            ->setParameter('id', $id)
+            ->andWhere('t.id > :id')
             ->orderBy('t.dateAdded', 'DESC')
             ->setMaxResults(20)
             ->getQuery()

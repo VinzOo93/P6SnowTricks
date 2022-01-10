@@ -12,13 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/home", name="home")
      */
     public function index(TrickRepository $trickRepository, Request $request): Response
     {
-        $load = $request->get('load');
+        $load = $request->get('id');
 
         if ($request->get('load')) {
+
             if ($load != null) {
                 $tricks = $trickRepository->findNextDate($load);
                 return new  JsonResponse([

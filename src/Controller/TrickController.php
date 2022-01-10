@@ -249,12 +249,18 @@ class TrickController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
 
             $photos = $trick->getPhotos()->getValues();
-            $folderId = $photos[0]->getFolderId();
-            $pathImage = $this->getParameter('photo_dir') . '/' . $folderId;
 
-            if ($filsystem->exists($pathImage)) {
-                $filsystem->remove($pathImage);
+            if ($photos != null) {
+
+                $folderId = $photos[0]->getFolderId();
+
+                $pathImage = $this->getParameter('photo_dir') . '/' . $folderId;
+
+                if ($filsystem->exists($pathImage)) {
+                    $filsystem->remove($pathImage);
+                }
             }
+
 
             $entityManager->remove($trick);
             $entityManager->flush();

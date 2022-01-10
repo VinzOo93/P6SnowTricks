@@ -6,6 +6,25 @@ window.onload = () => {
         btn.style.visibility = "hidden";
         loader.style.visibility = "visible"
 
+        let tricks = document.querySelectorAll(".js-card");
+        let lastTrick = tricks[tricks.length - 1].getAttribute("id");
+        const Params = new URLSearchParams();
 
+        Params.append("id", lastTrick);
+
+        console.log(Params);
+        const Url = new URL(window.location.href)
+
+        fetch(Url.pathname + "?" + Params.toString() + "&load=1", {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        }).then(response => response.json()
+        ).then(data =>{
+            const  content = document.querySelector("#content")
+            content.innerHTML = data.content
+            btn.style.visibility = "visible";
+            loader.style.visibility = "hidden"
+        }).catch((e) => console.log(e));
     });
 }
