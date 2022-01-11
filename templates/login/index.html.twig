@@ -18,7 +18,7 @@
                     <input type="text" id="username" name="_username" value="{{ last_username }}"/>
                     <label for="password">Password :</label>
                     <input type="password" id="password" name="_password"/>
-                    <input type="hidden" name="_target_path" value="/"/>
+                    <input type="hidden" name="_target_path" value="{{ path('home') }}"/>
                     <button type="submit">Se connecter</button>
                     <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
                 </form>

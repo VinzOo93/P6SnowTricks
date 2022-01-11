@@ -1,10 +1,10 @@
 {% form_theme form 'form/file_widget.twig' %}
 <div class="form-container">
     <div class="form-outer-background">
-        {% for flashError in app.flashes('alert_Same_Name') %}
-            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-        {% endfor %}
         <div class="form-trick">
+            {% for flashError in app.flashes('alert_trick') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
             <div class="edit-title">
                 <div class="text-card">
                     {% if app.request.attributes.get('_route') ==  'trick_edit' %}
@@ -23,7 +23,7 @@
                 {{ form_row(form.type) }}
             </div>
             <div class="photos-container">
-                {% for flashError in app.flashes('alert-last-image') %}
+                {% for flashError in app.flashes('alert-last-photo') %}
                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                 {% endfor %}
                 <div id="photos" data-prototype="{{ form_row(form.photos.vars.prototype)|e('html_attr') }}">
@@ -44,6 +44,9 @@
                 </div>
             </div>
             <div class="videos-container">
+                {% for flashError in app.flashes('alert-last-video') %}
+                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                {% endfor %}
                 <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
                     {{ form_label(form.videos) }}
                     {{ form_errors(form.videos) }}
