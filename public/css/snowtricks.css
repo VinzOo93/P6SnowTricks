@@ -141,6 +141,15 @@ body {
     position: relative;
 }
 
+.comment-container label {
+    height: 2vh;
+    margin: 1vh;
+}
+
+.comment-container {
+    margin: 5vw;
+}
+
 .form-group-1 input label{
     background: white;
     border: 0 none;
@@ -168,9 +177,6 @@ body {
     column-count: 1;
     display: flex;
     justify-content: center;
-}
-
-.placement {
 }
 
 .videos-container input{
@@ -484,6 +490,41 @@ li {
     width: 100%;
     background-color: #ddd;
     animation: loader-inner 2s infinite ease-in;
+}
+
+#comment_content {
+    height: 40px;
+    width: 400px;
+    margin: 1vh;
+}
+
+.author-img {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profile-picture {
+    width: 10vw;
+    height: 10vh;
+    border-radius: 50px;
+    margin: 2vh;
+}
+
+.view-comment {
+    margin-top: 3vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    border: #999999 1px solid;
+    border-radius: 20px;
+    background-color: #f1ebe2;
+}
+
+.comment-text {
+    border: #000000 2px solid;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    padding: 12px;
+    margin: 6px;
 }
 
 @keyframes loader {

@@ -1,16 +1,32 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-form">{{ button_label|default('Add a comment') }}</button>
-        {{ form_end(form) }}
-
-        {% for comment in trick.comments %}
-            <p>{{ comment.author }}</p>
-            <p>{{ comment.content }}</p>
-        {% endfor %}
+        <div class="form-container form-trick">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+            <button class="btn">{{ button_label|default('Add a comment') }}</button>
+            {{ form_end(form) }}
+        </div>
     {% endif %}
+<div class="comment-container">
+    {% for comment in trick.comments %}
+        <h2 class="img-centered">Commentaires</h2>
+        <div class="view-comment">
+        <div class="author-img">
+            <div>
+                <h4>{{ comment.author }}</h4>
+                <p>{{ comment.dateAdded | date(('d-m-Y-h')) }}</p>
+            </div>
+            <img class="profile-picture" src="{{ asset('images/user/admin/monkey-admin.jpeg') }}" alt="monkey-admin">
+        </div>
+        <div class="text-card comment-text">
+            <p>{{ comment.content }}</p>
+        </div>
+    </div>
+    {% else %}
+        <h3 class="img-centered">pas de commentaires</h3>
+    {% endfor %}
+</div>
 {% endblock %}
 
 
