@@ -1,6 +1,10 @@
-window.onload = () => {
-   let btn = document.querySelector("#show-more")
+window.addEventListener('load', init)
+
+function init() {
+
+    let btn = document.querySelector("#show-more")
     let loader = document.querySelector(".loader")
+    let arrow = document.querySelector(".arrow-down")
 
     btn.addEventListener("click", function (e) {
         btn.style.visibility = "hidden";
@@ -20,11 +24,12 @@ window.onload = () => {
                 "X-Requested-With": "XMLHttpRequest"
             }
         }).then(response => response.json()
-        ).then(data =>{
-            const  content = document.querySelector("#content")
+        ).then(data => {
+            const content = document.querySelector("#content")
             content.innerHTML = data.content
             btn.style.visibility = "visible";
             loader.style.visibility = "hidden"
+            arrow.style.visibility = "visible"
         }).catch((e) => console.log(e));
     });
 }
