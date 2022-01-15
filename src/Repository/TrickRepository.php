@@ -23,9 +23,8 @@ class TrickRepository extends ServiceEntityRepository
     public function findByLastDate()
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.dateAdded < CURRENT_TIMESTAMP()')
-            ->orderBy('t.dateAdded', 'DESC')
             ->setMaxResults(20)
+            ->orderBy('t.dateAdded', 'DESC')
             ->getQuery()
             ->getResult()
         ;
@@ -33,10 +32,8 @@ class TrickRepository extends ServiceEntityRepository
 
     public  function findNextDate(string $id){
         return $this->createQueryBuilder('t')
-            ->andWhere('t.dateAdded < CURRENT_TIMESTAMP()')
             ->setParameter('id', $id)
             ->andWhere('t.id > :id')
-            ->orderBy('t.dateAdded', 'DESC')
             ->setMaxResults(20)
             ->getQuery()
             ->getResult()

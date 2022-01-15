@@ -1,17 +1,296 @@
+.navbar-container {
+    width: 100%;
+    z-index: 2;
+    position: fixed;
+    white-space: nowrap;
+    margin-top: 3%;
+}
+
+
+.logo-snowtricks {
+    position: absolute;
+}
+
+.img-snowtricks-home {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, -0.7)), url("../images/snowtricks-home.jpg");
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
+    margin: -15px;
+}
+
+.form-over-background {
+    position: fixed;
+    top: 20%;
+    margin-right: 37%;
+}
+
+.form-trick {
+    background: #fff;
+    margin: 5% auto 0;
+    box-shadow: 0 0 1em #b4c5cb;
+    border-radius: 20px;
+}
+
+@media screen and  (min-width: 768px) {
+    /* TRICK */
+    .comment-container {
+        margin: 5vw;
+    }
+
+    #comment_content {
+        height: 40px;
+        width: 400px;
+        margin: 1vh;
+    }
+
+    .sticker-show {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .container-show {
+        display: flex;
+        position: relative;
+        overflow-x: scroll;
+    }
+
+    .item {
+        display: contents;
+    }
+    /* TRICK */
+    /*FROM TRICK */
+    .form-group-1 input label {
+        background: white;
+        border: 0 none;
+        border-radius: 3px;
+        box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+        padding: 4px 50px;
+        box-sizing: border-box;
+        width: 90%;
+        margin: 0 10%;
+        position: relative;
+    }
+
+    .form-group-1 {
+        padding: 15px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        color: #2C3E50;
+        font-size: 13px;
+        border-radius: 20px;
+
+    }
+
+    .form-group-1 form {
+        width: 400px;
+        margin: 50px auto;
+        text-align: center;
+        position: relative;
+    }
+
+
+    .form-trick form {
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-trick {
+        max-width: 15vw;
+        padding: 4em 30em;
+    }
+
+
+    /*FROM TRICK */
+
+    /*FROM LOGIN/REGISTER */
+    .form-over-background {
+        top: 20%;
+        margin-left: 37%;
+    }
+
+    /*FROM LOGIN/REGISTER */
+
+    /*HOME PAGE*/
+
+    .navbar ul {
+        display: flex;
+    }
+
+    .img-snowtricks-home {
+        width: 120%;
+        height: 85vh;
+    }
+
+    .navbar-container {
+        left: 65% !important;
+    }
+
+
+    .navbar li {
+        margin-right: 3%;
+    }
+
+    .logo-snowtricks {
+        width: 12vw;
+        left: 3%;
+        margin-top: 2%;
+        margin-bottom: 10px;
+    }
+
+    .table-card-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .centered-title {
+        display: flex;
+        justify-content: center;
+        color: white;
+        text-align: center;
+    }
+
+    .arrow-up {
+        position: absolute;
+        left: 90%;
+        top: 70%;
+    }
+    /*HOME PAGE*/
+}
+
+
+@media screen and  (max-width: 768px) {
+    /*TRICK */
+
+
+    .item {
+        width: 100%;
+    }
+
+    .comment_content {
+        width: 300px;
+    }
+
+    .show-text-area {
+        width: 300px;
+    }
+    iframe {
+        width: 300px!important;
+    }
+
+    .container-show {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        align-items: center;
+    }
+
+    .comment-container {
+        width: 340px;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+    }
+
+
+    /* TRICK */
+
+    /*FROM TRICK */
+
+    .form-trick {
+        padding: 0 5em;
+    }
+
+    .form-trick input {
+        width: 110px !important;
+    }
+
+    .form-trick textarea {
+        min-width: 120px;
+        min-height: 50px;
+    }
+
+    .btn-del {
+        left: 50px;
+    }
+
+
+    .form-group-1 {
+        width: 150px;
+    }
+
+
+    /*FROM TRICK */
+
+    /*FROM LOGIN/REGISTER */
+    .form-over-background {
+        top: 26%;
+        margin-left: 25%;
+    }
+
+    /*FROM LOGIN/REGISTER */
+
+    /*HOME PAGE*/
+
+    .img-snowtricks-home {
+        height: 65vh;
+    }
+
+    .logo-snowtricks {
+        width: 40vw;
+        top: 55%;
+        right: 30%;
+    }
+
+    .navbar-container {
+        left: 0 !important;
+    }
+
+    .navbar ul {
+        align-items: center;
+    }
+    .navbar li {
+        display: flex;
+        justify-content: center;
+        margin: 4%;
+    }
+
+    .table-card-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .centered-title {
+        display: none;
+    }
+
+    .arrow-up {
+        position: absolute;
+        left: 80%;
+        top: 65%;
+    }
+
+    /*HOME PAGE*/
+
+}
+
+
 * {
     font-family: Verdana, sans-serif;
 }
+
+.div-home-title {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 .arrow {
     width: 60px;
     height: 60px;
 }
 
-.arrow-up {
-    position: absolute;
-    left: 90%;
-    top: 70%;
-}
 
 .arrow-down {
     transform: rotate(180deg);
@@ -39,13 +318,6 @@ img {
     height: auto;
 }
 
-.form-over-background {
-    position: fixed;
-    top: 20%;
-    margin-left: 37%;
-    margin-right: 37%;
-}
-
 .form-outer-background {
     position: absolute;
     top: 83%;
@@ -58,32 +330,21 @@ body {
     max-width: 100%;
     overflow-x: hidden;
 }
+
 .banner-container {
     text-align: center;
     color: white;
     margin: auto;
     position: absolute;
+    width: 100%;
 }
 
-.div-home-title {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 .div-form-title {
     position: absolute;
     top: 20%;
     left: 40%;
 }
 
-
-.centered-title {
-    display: flex;
-    justify-content: center;
-    color: white;
-    text-align: center;
-}
 
 .size-25px {
     font-size: 3.5vw;
@@ -105,20 +366,12 @@ body {
     box-shadow: 0 0 1em #b4c5cb;
     border-radius: 20px;
 }
-.form-trick {
-    background: #fff;
-    padding: 4em 30em;
-    max-width: 15vw;
-    margin: 5% auto 0;
-    box-shadow: 0 0 1em #b4c5cb;
-    border-radius: 20px;
-}
+
 
 .form-trick div {
     margin-right: 0.5vw;
     margin-left: 0.5vw;
 }
-
 
 
 .new-item {
@@ -162,46 +415,14 @@ body {
     display: inline-block;
     padding: 4px 10px;
     font-weight: 400;
-    background-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
 }
 
-.form-group-1 form {
-    width: 400px;
-    margin: 50px auto;
-    text-align: center;
-    position: relative;
-}
+
 
 .comment-container label {
     height: 2vh;
     margin: 1vh;
-}
-
-.comment-container {
-    margin: 5vw;
-}
-
-.form-group-1 input label{
-    background: white;
-    border: 0 none;
-    border-radius: 3px;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    padding: 4px 50px;
-    box-sizing: border-box;
-    width: 90%;
-    margin: 0 10%;
-    position: relative;
-}
-
-.form-group-1 {
-    padding: 15px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    color: #2C3E50;
-    font-size: 13px;
-    border-radius: 20px;
-
 }
 
 .photos-container .videos-container {
@@ -210,8 +431,8 @@ body {
     justify-content: center;
 }
 
-.videos-container input{
-   width: 30vh;
+.videos-container input {
+    width: 30vh;
 }
 
 .form-standard button {
@@ -219,10 +440,7 @@ body {
     width: 100%;
 }
 
-.form-trick  form {
-    display: flex;
-    justify-content: center;
-}
+
 
 .form-trick input {
     margin: 2%;
@@ -238,28 +456,12 @@ body {
     background-color: #DDDDDD;
 }
 
-.navbar-container {
-    width: 100%;
-    z-index: 2;
-    position: fixed;
-    left: 70%;
-    white-space: nowrap;
-    margin-top: 3%;
-
-}
 
 .navbar {
     display: table-row;
     text-align: justify !important;
 }
 
-.navbar ul {
-    display: flex;
-}
-
-.navbar li {
-    margin-right: 3%;
-}
 
 .navbar a {
     background-color: rgba(142, 165, 231, 0.84);
@@ -275,24 +477,9 @@ body {
     background-color: #DDDDDD;
 
 }
-.img-snowtricks-home {
-    width: 100vw;
-    height: 85vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, -0.7)), url("../images/snowtricks-home.jpg");
-    background-size: cover;
-    z-index: -1;
-}
-
-.logo-snowtricks {
-    position: absolute;
-    width: 12vw;
-    left: 3%;
-    margin-top: 2%;
-    margin-bottom: 10px;
-}
 
 li {
-     text-decoration: none ;
+    text-decoration: none;
     list-style-type: none;
 }
 
@@ -300,13 +487,8 @@ li {
     position: absolute;
     display: grid;
     margin-right: 7%;
-    top: 88%;
+    top: 92%;
     margin-left: 7%;
-}
-
-.table-card-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
 }
 
 .card-container {
@@ -335,12 +517,13 @@ li {
     justify-content: center;
 }
 
-.img-card   {
+.img-card {
     display: flex;
     max-height: 15vh !important;
     margin: 15px;
 }
-.img-card  img {
+
+.img-card img {
     border-radius: 10%;
 }
 
@@ -349,7 +532,7 @@ li {
     justify-content: center;
 }
 
-.img-centered img{
+.img-centered img {
     margin-top: 5%;
     margin-left: 5%;
     margin-right: 5%;
@@ -402,24 +585,15 @@ li {
     padding-right: 1px;
 }
 
-.btn-delete:hover  {
+.btn-delete:hover {
     background-color: white !important;
     border-radius: 5px;
     padding-left: 3px;
     padding-right: 1px;
 }
 
-.container-show {
-    display: flex;
-    position: relative;
-    overflow-x: scroll;
-}
 
-.item {
-    display: contents;
-}
-
-.img-show  {
+.img-show {
     margin: 10px;
     height: 25vh;
     width: 100vw;
@@ -435,11 +609,6 @@ li {
 
 .video-show {
     margin: 10px;
-}
-
-.sticker-show {
-    display: flex;
-    justify-content: space-evenly;
 }
 
 .sticker {
@@ -461,7 +630,7 @@ li {
 }
 
 .show-text-area p {
-    text-justify: distribute-all-lines ;
+    text-justify: distribute-all-lines;
 }
 
 .title-trick {
@@ -524,12 +693,6 @@ li {
     animation: loader-inner 2s infinite ease-in;
 }
 
-#comment_content {
-    height: 40px;
-    width: 400px;
-    margin: 1vh;
-}
-
 .author-img {
     display: flex;
     justify-content: space-evenly;
@@ -545,7 +708,7 @@ li {
 .view-comment {
     margin-top: 3vh;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     border: #999999 1px solid;
     border-radius: 20px;
     background-color: #f1ebe2;
@@ -602,6 +765,10 @@ li {
         height: 0%;
     }
 }
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 <html lang="fr-FR">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Snowtrick.con{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset("css/snowtricks.css") }}">
@@ -14,9 +15,10 @@
         {% include 'background-image.html.twig' %}
         </div>
     {% block body %}
-
+    {% endblock %}
+        <script type="module" src="{{ asset('js/navbar-hide.js') }}"></script>
+        {% block javascripts %}
         {% endblock %}
-        {% block javascripts %}{% endblock %}
     </div>
     </body>
 </html>
