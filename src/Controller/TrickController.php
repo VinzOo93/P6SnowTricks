@@ -65,25 +65,28 @@ class TrickController extends AbstractController
                             foreach ($filePhotos as $filePhoto) {
 
                                 $file = $filePhoto->getFile();
-                                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                                $safeFilename = $slugger->slug($originalFilename);
-                                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                                if ($file != null) {
 
-                                $filePhoto->setSlug($newFilename);
-                                $filePhoto->setFolderId($fileId);
-                                $filePhoto->setTrick($trick);
+                                    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                                    $safeFilename = $slugger->slug($originalFilename);
+                                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
-                                $entityManager->persist($filePhoto);
+                                    $filePhoto->setSlug($newFilename);
+                                    $filePhoto->setFolderId($fileId);
+                                    $filePhoto->setTrick($trick);
 
-                                try {
-                                    $file->move(
-                                        $pathImage,
-                                        $newFilename
-                                    );
+                                    $entityManager->persist($filePhoto);
 
-                                } catch (fileException $e) {
-                                    $this->addFlash('alert_trick', 'erreur enregistrement fichier');
-                                    return $this->redirectToRoute('trick_new');
+                                    try {
+                                        $file->move(
+                                            $pathImage,
+                                            $newFilename
+                                        );
+
+                                    } catch (fileException $e) {
+                                        $this->addFlash('alert_trick', 'erreur enregistrement fichier');
+                                        return $this->redirectToRoute('trick_new');
+                                    }
                                 }
                             }
                             foreach ($fileVideos as $fileVideo) {
@@ -108,6 +111,7 @@ class TrickController extends AbstractController
                             $entityManager->persist($trick);
                             $entityManager->flush();
 
+                            $this->addFlash('success', 'Bravo, votre trick est bien enregistré ☑️ ! ');
                             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
                         }
                     } catch (Exception $exception) {
@@ -314,7 +318,7 @@ class TrickController extends AbstractController
             $entityManager->remove($trick);
             $entityManager->flush();
         }
-
+        $this->addFlash('success', 'Bravo, votre trick est bien éffacé ☑️ ! ');
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 

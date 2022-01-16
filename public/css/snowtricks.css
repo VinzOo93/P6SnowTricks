@@ -6,6 +6,10 @@
     margin-top: 3%;
 }
 
+.flash-notice {
+
+}
+
 
 .logo-snowtricks {
     position: absolute;
@@ -162,7 +166,6 @@
 
 @media screen and  (max-width: 768px) {
     /*TRICK */
-
 
     .item {
         width: 100%;

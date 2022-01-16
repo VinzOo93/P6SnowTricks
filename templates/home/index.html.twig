@@ -4,11 +4,7 @@
 
 {% block body %}
     <div class="top"></div>
-            {% for message in app.flashes('success') %}
-                <div class="flash-notice">
-                    {{ message }}
-                </div>
-            {% endfor %}
+
             <div class="arrow arrow-up">
                 <button id="js-scroll-down">
                     <img src="{{ asset('images/scroll-arrow.png') }}" alt="arrow-up">
@@ -20,6 +16,11 @@
                 {% else %}
                     <div class="centered-title size-25px">Just make your trick 🎿</div>
                 {% endif %}
+                {% for message in app.flashes('success') %}
+                    <div class="flash-notice<">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             </div>
         <div id="scroll-down" class="tricks-container">
             {% include 'trick/index.html.twig' %}
