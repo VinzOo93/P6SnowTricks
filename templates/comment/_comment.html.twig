@@ -9,13 +9,13 @@
         </div>
     {% endif %}
 <div class="comment-container">
+    <h2 class="img-centered">Commentaires</h2>
     {% for comment in trick.comments %}
-        <h2 class="img-centered">Commentaires</h2>
         <div class="view-comment">
         <div class="author-img">
             <div>
                 <h4>{{ comment.author }}</h4>
-                <p>{{ comment.dateAdded | date(('d-m-Y-h')) }}</p>
+                <p>{{ comment.dateAdded | date(('d-m-Y h:m')) }}</p>
             </div>
             <img class="profile-picture" src="{{ asset('images/user/admin/monkey-admin.jpeg') }}" alt="monkey-admin">
         </div>

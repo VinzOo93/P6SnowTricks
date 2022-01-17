@@ -24,7 +24,6 @@ class TrickRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->setMaxResults(20)
-            ->orderBy('t.dateAdded', 'DESC')
             ->getQuery()
             ->getResult()
         ;

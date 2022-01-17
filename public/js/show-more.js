@@ -26,11 +26,18 @@ function init() {
         ).then(data => {
 
             let content = document.createElement("div");
+
             content.innerHTML = data.content
             span.appendChild(content);
             btn.style.visibility = "visible";
             loader.style.visibility = "hidden"
             arrow.style.visibility = "visible"
+
+            if (content.innerText === "no records found"){
+                btn.style.visibility = "hidden";
+            }
+
+
         }).catch((e) => console.log(e));
     });
 }
