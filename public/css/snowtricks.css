@@ -6,9 +6,16 @@
     margin-top: 3%;
 }
 
-.flash-notice {
-
+.error {
+    color: #B0413E;
+    font-weight: bold;
 }
+
+.alert {
+    color: #B0413E;
+    font-weight: bold;
+}
+
 
 
 .logo-snowtricks {
@@ -36,7 +43,29 @@
     border-radius: 20px;
 }
 
+.arrow-down {
+    transform: rotate(180deg);
+    position: fixed;
+    visibility: hidden;
+}
+
 @media screen and  (min-width: 768px) {
+    .error {
+        color: #B0413E;
+        font-weight: bold;
+    }
+
+    .alert {
+        color: #B0413E;
+        font-weight: bold;
+    }
+
+    .flash-notice {
+        border: solid 2px springgreen;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: white;
+    }
     /* TRICK */
     .comment-container {
         margin: 5vw;
@@ -62,6 +91,7 @@
     .item {
         display: contents;
     }
+
     /* TRICK */
     /*FROM TRICK */
     .form-group-1 input label {
@@ -107,7 +137,6 @@
 
 
     /*FROM TRICK */
-
     /*FROM LOGIN/REGISTER */
     .form-over-background {
         top: 20%;
@@ -115,11 +144,14 @@
     }
 
     /*FROM LOGIN/REGISTER */
-
     /*HOME PAGE*/
-
     .navbar ul {
         display: flex;
+    }
+
+    .arrow-down {
+        left: 67%;
+        top: 86%;
     }
 
     .img-snowtricks-home {
@@ -160,13 +192,29 @@
         left: 90%;
         top: 70%;
     }
+
     /*HOME PAGE*/
 }
 
 
 @media screen and  (max-width: 768px) {
-    /*TRICK */
+    .error {
+        color: #B0413E;
+        font-weight: bold;
+    }
 
+    .alert {
+        color: #B0413E;
+        font-weight: bold;
+    }
+
+    .flash-notice {
+        border: solid 2px springgreen;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: white;
+    }
+    /*TRICK */
     .item {
         width: 100%;
     }
@@ -178,27 +226,26 @@
     .show-text-area {
         width: 300px;
     }
+
     iframe {
-        width: 300px!important;
+        width: 300px !important;
     }
 
     .container-show {
         display: grid;
-        grid-template-columns: repeat(1,1fr);
+        grid-template-columns: repeat(1, 1fr);
         align-items: center;
     }
 
     .comment-container {
         width: 340px;
         display: grid;
-        grid-template-columns: repeat(1,1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
 
     /* TRICK */
-
     /*FROM TRICK */
-
     .form-trick {
         padding: 0 5em;
     }
@@ -223,7 +270,6 @@
 
 
     /*FROM TRICK */
-
     /*FROM LOGIN/REGISTER */
     .form-over-background {
         top: 26%;
@@ -231,17 +277,20 @@
     }
 
     /*FROM LOGIN/REGISTER */
-
     /*HOME PAGE*/
+    .arrow-down {
+        left: 72%;
+        top: 88%;
+    }
 
     .img-snowtricks-home {
-        height: 65vh;
+        height: 60vh;
     }
 
     .logo-snowtricks {
         width: 40vw;
-        top: 55%;
-        right: 30%;
+        top: 60%;
+        right: 32%;
     }
 
     .navbar-container {
@@ -251,6 +300,7 @@
     .navbar ul {
         align-items: center;
     }
+
     .navbar li {
         display: flex;
         justify-content: center;
@@ -268,7 +318,7 @@
 
     .arrow-up {
         position: absolute;
-        left: 80%;
+        left: 70%;
         top: 65%;
     }
 
@@ -292,15 +342,6 @@
 .arrow {
     width: 60px;
     height: 60px;
-}
-
-
-.arrow-down {
-    transform: rotate(180deg);
-    position: fixed;
-    left: 90%;
-    top: 92%;
-    visibility: hidden;
 }
 
 
@@ -386,12 +427,7 @@ body {
     margin-top: 10px !important;
 }
 
-.div-button {
-    margin: 5vh 25% 5vh 25%;
-}
-
 .btn-form {
-    position: absolute;
     width: 30vw;
     height: 3vh;
     z-index: 5;
@@ -422,7 +458,6 @@ body {
 }
 
 
-
 .comment-container label {
     height: 2vh;
     margin: 1vh;
@@ -444,7 +479,6 @@ body {
 }
 
 
-
 .form-trick input {
     margin: 2%;
 }
@@ -453,6 +487,7 @@ body {
     display: inline-table;
     margin-left: 33%;
     margin-right: 33%;
+    margin-bottom: 20px;
 }
 
 .banner-container {

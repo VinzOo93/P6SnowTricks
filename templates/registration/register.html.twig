@@ -3,13 +3,17 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-        {% for flashError in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-        {% endfor %}
+
         <div class="form-over-background">
             <h1 class="centered-title">Enregistrez votre compte</h1>
-            <div class="form-standard">
+
+            <div class="form-standard form-trick">
                 {{ form_start(registrationForm) }}
+                <div class="img-centered">
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+                </div>
                 {{ form_row(registrationForm.name) }}
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.plainPassword, {

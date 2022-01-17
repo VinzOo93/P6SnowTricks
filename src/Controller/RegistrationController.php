@@ -38,13 +38,23 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
           $name = $user->getName();
+          $email = $user->getEmail();
 
             try {
               if ($entityManager->getRepository('App:User')->findOneBy(['name' => $name])){
                   throw new Exception();
               }
             } catch (Exception $exception) {
-                $this->addFlash('alert_Same_Name', 'Ce Pseudo est déjà utilisé');
+                $this->addFlash('verify_email_error', 'Ce Pseudo est déjà utilisé');
+                return $this->redirectToRoute('register');
+            }
+
+            try {
+                if ($entityManager->getRepository('App:User')->findOneBy(['email' => $email])){
+                    throw new Exception();
+                }
+            } catch (Exception $exception) {
+                $this->addFlash('verify_email_error', 'Ce mail est déjà utilisé');
                 return $this->redirectToRoute('register');
             }
 
