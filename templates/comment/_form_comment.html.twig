@@ -1,0 +1,11 @@
+{% block body %}
+{% if is_granted('ROLE_USER') %}
+    <div class="form-container form-trick">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Add a comment') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endif %}
+{% endblock %}

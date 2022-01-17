@@ -40,7 +40,15 @@
             <p class="sticker">Auteur : {{ trick.author }}</p>
         </div>
         <div class="comment-container form-group-1">
+            <h2 class="img-centered">Commentaires</h2>
+            {{ include('comment/_form_comment.html.twig') }}
             {{ include('comment/_comment.html.twig') }}
+            <span class="content-span"></span>
+            <div class="img-centered">
+                <button id="show-more"  class="show-more">Show more</button>
+                <div class="clock-loader"></div>
+                <span class="loader"><span class="loader-inner"></span></span>
+            </div>
         </div>
     </div>
 
@@ -50,4 +58,7 @@
     <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
 
     {{ include('trick/_delete_form.html.twig') }}
+{% endblock %}
+{%block javascripts %}
+    <script type="module" src="{{ asset('js/show-more-comment.js') }}"></script>
 {% endblock %}

@@ -38,17 +38,4 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-
-
-    /*
-    public function findOneBySomeField($value): ?Trick
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

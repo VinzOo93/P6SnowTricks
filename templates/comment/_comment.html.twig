@@ -1,17 +1,7 @@
 {% block body %}
-    {% if is_granted('ROLE_USER') %}
-        <div class="form-container form-trick">
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            {{ form_widget(form) }}
-            <button class="btn">{{ button_label|default('Add a comment') }}</button>
-            {{ form_end(form) }}
-        </div>
-    {% endif %}
 <div class="comment-container">
-    <h2 class="img-centered">Commentaires</h2>
-    {% for comment in trick.comments %}
-        <div class="view-comment">
+    {% for comment in comments| slice(0, 5) %}
+        <div id="{{ comment.id }}" class="view-comment js-card">
         <div class="author-img">
             <div>
                 <h4>{{ comment.author }}</h4>

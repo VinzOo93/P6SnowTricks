@@ -9,6 +9,8 @@ use App\Entity\User;
 use App\Entity\Video;
 use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
+use App\Repository\TrickRepository;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -134,8 +136,23 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}/show", name="trick_show", methods={"GET","POST"})
      */
-    public function show(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
+    public function show(CommentRepository $commentRepository, Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
+        $comId = $request->get('comId');
+        $trickId = strval($trick->getId());
+
+        if ($request->get('loadCom')) {
+            if ($comId && $trickId) {
+                $comments = $commentRepository->findComments($trickId, $comId);
+
+                return new  JsonResponse([
+                    'content' => $this->renderView('comment/_comment.html.twig', [
+                        'comments' => $comments,
+                    ])
+                ]);
+            }
+        }
+        $commentShow = $commentRepository->findBy(['trick' => $trick->getId()],['dateAdded'=> 'DESC']);
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -158,11 +175,13 @@ class TrickController extends AbstractController
                 'id' => $trick->getId(),
                 'trick' => $trick,
                 'form' => $form,
+                'comments' => $commentShow
             ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'comments' => $commentShow,
             'form' => $form->createView(),
         ]);
     }
