@@ -19,7 +19,6 @@ class HomeController extends AbstractController
         $load = $request->get('id');
 
         if ($request->get('load')) {
-
             if ($load != null) {
                 $tricks = $trickRepository->findNextDate($load);
                 return new  JsonResponse([
@@ -31,7 +30,7 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
-            'tricks' => $trickRepository->findByLastDate(),
+            'tricks' => $trickRepository->findBy([], ['id' => 'DESC'], 20),
         ]);
     }
 

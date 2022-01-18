@@ -19,20 +19,11 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
-
-    public function findByLastDate()
-    {
-        return $this->createQueryBuilder('t')
-            ->setMaxResults(20)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
     public  function findNextDate(string $id){
         return $this->createQueryBuilder('t')
             ->setParameter('id', $id)
-            ->andWhere('t.id > :id')
+            ->andWhere('t.id < :id')
+            ->orderBy('t.id', 'DESC')
             ->setMaxResults(20)
             ->getQuery()
             ->getResult()
