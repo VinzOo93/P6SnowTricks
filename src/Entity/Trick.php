@@ -22,8 +22,7 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=64, unique=true, nullable=true)
      */
     private string $name;
 
@@ -43,7 +42,7 @@ class Trick
     private  $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      * @AppUrl\UrlYT
      */
     private $videos;

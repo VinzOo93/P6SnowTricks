@@ -8,7 +8,7 @@
     {% endfor %}
     <div class="form-over-background">
         <h1 class="centered-title">Se connecter</h1>
-        <div class=form-standard>
+        <div class="form-standard">
             <form action="{{ path('login') }}" method="post">
                 {% if error %}
                     <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

@@ -27,7 +27,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 1; $i++) {
+            $i = 0;
             $user = new User();
             $now = new \DateTime('now');
 
@@ -39,7 +39,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             $user->setIsVerified(true);
 
             $manager->persist($user);
-        }
+
         $manager->flush();
     }
 

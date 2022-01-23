@@ -18,6 +18,7 @@ class TypeFixtures extends Fixture implements FixtureGroupInterface
             $type->setName(self::TYPE[$i]);
 
             $manager->persist($type);
+
         }
 
         $manager->flush();

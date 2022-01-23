@@ -7,14 +7,11 @@ function init() {
         var currentScrollPos = window.pageYOffset;
 
         let navbar = document.querySelector(".navbar");
-        if (prevScrollpos > currentScrollPos) {
+        if (prevScrollpos > currentScrollPos && currentScrollPos === 0) {
             navbar.style.opacity = "1";
         } else {
             navbar.style.opacity = "0";
         }
-
         prevScrollpos = currentScrollPos;
     }
-
-
 }

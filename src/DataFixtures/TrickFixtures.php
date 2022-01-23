@@ -25,7 +25,9 @@ class TrickFixtures extends Fixture implements FixtureGroupInterface, DependentF
         $count = 0;
         $name = 0;
 
-        for ($i = 0; $i < 7; $i++) {
+        $user = $manager->getRepository(User::class)->find(self::ADMIN);
+
+        for ($i = 0; $i <7; $i++) {
             $trick = new Trick();
             $now = new \DateTime('now');
             $photo = new  Photo();
@@ -37,25 +39,21 @@ class TrickFixtures extends Fixture implements FixtureGroupInterface, DependentF
                 $count ++;
                 $i = 0;
             }
+            $trick->setName('Trick Grab' . $name );
 
-            $user = $manager->getRepository(User::class)->find(self::ADMIN);
             $trick->setType($manager->getRepository(Type::class)->find(self::GRAB));
 
             $trick->addPhotos($photo->setSlug('Trick-Grab-' . $media .  '.jpg')->setFolderId('Trick-Grab-' . 1));
-            $manager->persist($photo);
 
             $trick->addVideos($video->setSlug('https://www.youtube.com/embed/UNItNopAeDU'));
-            $manager->persist($video);
 
             $trick->setAuthor($user);
             $trick->setDescription(self::DESCRIPT_GRAB);
-            $trick->setName('Trick Grab' . + $name );
             $trick->setDateAdded($now);
 
             $manager->persist($trick);
-
-
         }
+
         $manager->flush();
 
     }

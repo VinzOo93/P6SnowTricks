@@ -18,9 +18,9 @@ class CommentFixtures extends Fixture implements FixtureGroupInterface, Dependen
     {
         $tricks = $manager->getRepository(Trick::class)->findAll();
 
+        $user = $manager->getRepository(User::class)->find(self::ADMIN);
 
         for ($i=0;$i<40; $i++ ){
-            $user = $manager->getRepository(User::class)->find(self::ADMIN);
             foreach ($tricks as $trick){
                 $comment = new Comment();
                 $now = new \DateTime('now');

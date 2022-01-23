@@ -3,15 +3,13 @@
 {% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}
-    <div class="form-container">
-        <div class="form-over-background">
-            <div class="centered-item">
-                <h3 class="centered-title">Si votre compte existe vous allez recevoir un mail </h3>
+    <div class="form-over-background">
+        <div class="form-standard">
+            <div>
+                <h3>Si votre compte existe vous allez recevoir un mail </h3>
                 <img src="{{ asset('images/monkey-frustrated.gif') }}" alt="forgot_password" class="forgot_password">
                 <a href="{{ path('home') }}" class="centered-title ">Accueil</a>
             </div>
         </div>
     </div>
-
-
 {% endblock %}

@@ -208,6 +208,11 @@
         font-weight: bold;
     }
 
+    .form-login-register {
+        position: fixed;
+        top: 60%;
+    }
+
     .flash-notice {
         border: solid 2px springgreen;
         border-radius: 10px;
