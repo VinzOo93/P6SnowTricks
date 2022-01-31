@@ -1,12 +1,12 @@
-window.addEventListener('load', init)
+window.addEventListener("load", init);
 
 function init() {
-    let links = document.querySelectorAll("[data-delete-photo]")
+    let links = document.querySelectorAll("[data-delete-photo]");
 
     for (let link of links) {
         link.addEventListener("click", function (e) {
-            e.preventDefault()
-            let eArray = e.composedPath()
+            e.preventDefault();
+            let eArray = e.composedPath();
 
             if (confirm("Voulez-vous supprimer cette photo ?")) {
                 fetch(this.getAttribute("href"), {
@@ -21,7 +21,7 @@ function init() {
                     if (data.success) {
                         document.getElementById(eArray[4].id).remove();
                     } else {
-                        location.reload()
+                        location.reload();
                         alert(data.error());
                     }
                 });

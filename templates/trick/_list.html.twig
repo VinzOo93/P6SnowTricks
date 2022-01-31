@@ -2,7 +2,7 @@
     {% for trick in tricks %}
         <div id="{{ trick.id }}" class="card-container js-card">
             <div class="img-card">
-                <a class="img-link" href="{{ path('trick_show', {'id': trick.id}) }}">
+                <a class="img-link" href="{{ path('trick_show', {'slug': trick.slug}) }}">
                     {% for photos in trick.photos %}
                         {% if loop.first %}
                             <img src="{{ asset('images/tricks/'~ photos.folderId ~'/'~ photos.slug) }}" alt="{{ photos.slug }}">
@@ -11,7 +11,7 @@
                 </a>
             </div>
             <div class="text-card">
-                <a class="card-title" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.name }}</a>
+                <a class="card-title" href="{{ path('trick_show', {'slug': trick.slug}) }}">{{ trick.name }}</a>
                 {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('trick_edit', {'id': trick.id}) }}">
                         <div class="edit-icon">✎</div>

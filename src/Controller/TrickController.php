@@ -108,7 +108,7 @@ class TrickController extends AbstractController
                             }
                             $trick->setAuthor($user->find($this->getUser()));
                             $trick->setDateAdded($now);
-
+                            $trick->setSlug($slugger->slug($trick->getName()));
                             $entityManager->persist($trick);
                             $entityManager->flush();
 
@@ -133,7 +133,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/show", name="trick_show", methods={"GET","POST"})
+     * @Route("/{slug}/show", name="trick_show", methods={"GET","POST"})
      */
     public function show(CommentRepository $commentRepository, Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
@@ -171,7 +171,7 @@ class TrickController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('trick_show', [
-                'id' => $trick->getId(),
+                'slug' => $trick->getSlug(),
                 'trick' => $trick,
                 'form' => $form,
                 'comments' => $commentShow
@@ -246,16 +246,10 @@ class TrickController extends AbstractController
                                     $filePhoto->setTrick($trick);
 
                                     $entityManager->persist($filePhoto);
-
-                                    try {
                                         $file->move(
                                             $pathImage,
                                             $newFilename
                                         );
-
-                                    } catch (fileException $e) {
-                                        echo('error upload');
-                                    }
                                 }
                             }
                         };
