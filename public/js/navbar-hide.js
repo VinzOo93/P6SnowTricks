@@ -1,4 +1,4 @@
-window.addEventListener('load', init)
+window.addEventListener("load", init);
 
 function init() {
     var prevScrollpos = window.pageYOffset;
@@ -13,5 +13,5 @@ function init() {
             navbar.style.opacity = "0";
         }
         prevScrollpos = currentScrollPos;
-    }
+    };
 }

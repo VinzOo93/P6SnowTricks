@@ -1,11 +1,11 @@
-window.addEventListener('load', init)
+window.addEventListener("load", init);
 
 function init() {
-    let links = document.querySelectorAll("[data-delete-video]")
+    let links = document.querySelectorAll("[data-delete-video]");
     for (let link of links) {
         link.addEventListener("click", function (e) {
-            e.preventDefault()
-            let eArray = e.composedPath()
+            e.preventDefault();
+            let eArray = e.composedPath();
 
             if (confirm("Voulez-vous supprimer cette video ?")) {
                 fetch(this.getAttribute("href"), {

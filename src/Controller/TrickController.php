@@ -246,16 +246,10 @@ class TrickController extends AbstractController
                                     $filePhoto->setTrick($trick);
 
                                     $entityManager->persist($filePhoto);
-
-                                    try {
                                         $file->move(
                                             $pathImage,
                                             $newFilename
                                         );
-
-                                    } catch (fileException $e) {
-                                        echo('error upload');
-                                    }
                                 }
                             }
                         };

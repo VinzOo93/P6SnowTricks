@@ -7,16 +7,14 @@
 }
 
 .error {
-    color: #B0413E;
+    color: #b0413e;
     font-weight: bold;
 }
 
 .alert {
-    color: #B0413E;
+    color: #b0413e;
     font-weight: bold;
 }
-
-
 
 .logo-snowtricks {
     position: absolute;
@@ -111,10 +109,9 @@
         border: 1px solid #ccc;
         margin-bottom: 10px;
         box-sizing: border-box;
-        color: #2C3E50;
+        color: #2c3e50;
         font-size: 13px;
         border-radius: 20px;
-
     }
 
     .form-group-1 form {
@@ -135,8 +132,8 @@
         padding: 4em 30em;
     }
 
-
     /*FROM TRICK */
+
     /*FROM LOGIN/REGISTER */
     .form-over-background {
         top: 20%;
@@ -144,6 +141,7 @@
     }
 
     /*FROM LOGIN/REGISTER */
+
     /*HOME PAGE*/
     .navbar ul {
         display: flex;
@@ -196,7 +194,6 @@
     /*HOME PAGE*/
 }
 
-
 @media screen and  (max-width: 768px) {
     .error {
         color: #B0413E;
@@ -247,7 +244,6 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }
-
 
     /* TRICK */
     /*FROM TRICK */
@@ -386,6 +382,7 @@ body {
     margin: auto;
     position: absolute;
     width: 100%;
+    background-color: #ddd;
 }
 
 .div-form-title {
@@ -462,7 +459,6 @@ body {
     background-color: rgba(255, 255, 255, 0);
 }
 
-
 .comment-container label {
     height: 2vh;
     margin: 1vh;
@@ -495,11 +491,6 @@ body {
     margin-bottom: 20px;
 }
 
-.banner-container {
-    background-color: #DDDDDD;
-}
-
-
 .navbar {
     display: table-row;
     text-align: justify !important;
@@ -508,7 +499,7 @@ body {
 
 .navbar a {
     background-color: rgba(142, 165, 231, 0.84);
-    color: #ffffff;
+    color: #fff;
     padding: 0.5em 1em;
     text-decoration: none;
     border-radius: 5px;
@@ -517,7 +508,7 @@ body {
 
 .navbar a:hover {
 
-    background-color: #DDDDDD;
+    background-color: #ddd;
 
 }
 
@@ -544,7 +535,7 @@ li {
 }
 
 .card-container:hover {
-    background-color: #DDDDDD;
+    background-color: #ddd;
 }
 
 .text-card {
@@ -581,12 +572,12 @@ li {
     margin-right: 5%;
 }
 
-.delete-icon .edit-icon {
-    position: center;
-}
-
 .edit-icon {
     margin-top: 2px;
+}
+
+.edit-icon .delete-icon {
+    position: center;
 }
 
 .delete-form {
@@ -607,7 +598,7 @@ li {
     height: 30px;
     cursor: pointer;
     background-color: #5de6de;
-    background-image: linear-gradient(315deg, #f1ebe2 0%, #ffffff 74%);
+    background-image: linear-gradient(315deg, #f1ebe2 0%, #fff 74%);
     border: solid 1px black;
     border-radius: 50%;
     transition: 200ms;
@@ -656,7 +647,7 @@ li {
 
 .sticker {
     background-color: rgb(229, 229, 229);
-    color: #000000;
+    color: #000;
     padding: 0.5em 1em;
     text-decoration: none;
     border-radius: 5px;
@@ -665,7 +656,7 @@ li {
 
 .show-text-area {
     background-color: rgb(250, 248, 248);
-    color: #000000;
+    color: #000;
     padding: 0.5em 1em;
     text-decoration: none;
     border-radius: 5px;
@@ -704,7 +695,7 @@ li {
 
 .show-more {
     background-color: rgba(142, 165, 231, 0.84);
-    color: #ffffff;
+    color: #fff;
     padding: 0.5em 1em;
     text-decoration: none;
     border-radius: 5px;
@@ -714,7 +705,7 @@ li {
 }
 
 .show-more:hover {
-    background-color: #DDDDDD;
+    background-color: #ddd;
 }
 
 .loader {
@@ -752,13 +743,13 @@ li {
     margin-top: 3vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    border: #999999 1px solid;
+    border: #999 1px solid;
     border-radius: 20px;
     background-color: #f1ebe2;
 }
 
 .comment-text {
-    border: #000000 2px solid;
+    border: #000 2px solid;
     border-radius: 20px;
     background-color: whitesmoke;
     padding: 12px;
