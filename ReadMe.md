@@ -1,3 +1,6 @@
+https://app.codacy.com/gh/VinzOo93/P6SnowTricks/dashboard
+![image](https://user-images.githubusercontent.com/60787347/154064500-09be25dc-9229-43a1-9573-1f94c5d574ea.png)
+
 installation
 Se rendre dans le dossier à l'intérieur du repertoire de votre server local :
 
