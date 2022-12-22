@@ -21,10 +21,11 @@ class HomeController extends AbstractController
         if ($request->get('load')) {
             if ($load != null) {
                 $tricks = $trickRepository->findNextDate($load);
-                return new  JsonResponse([
-                    'content' => $this->renderView('trick/_list.html.twig', [
-                        'tricks' => $tricks,
-                    ])
+                return new JsonResponse([
+                    'content' =>
+                        $this->render('trick/_list.html.twig', [
+                            'tricks' => $tricks,
+                        ])
                 ]);
             }
         }
